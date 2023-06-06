@@ -1,0 +1,93 @@
+# Logging option
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+substitutions:
+  _ENV: prod
+  _IMAGE_NAME: web-api-gateway
+# [START cloudbuild_quickstart_build]
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '--cache-from',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:latest',
+        '-t',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:$SHORT_SHA',
+        '-t',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:latest',
+        '-t',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:release',
+        '-t',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:develop',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['tag', '$SHORT_SHA']
+
+images:
+  [
+    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:$SHORT_SHA',
+    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:latest',
+    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:develop',
+    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:release',
+  ]
+
+  # - name: gcr.io/cloud-builders/git
+  #   args:
+  #     [
+  #      'clone',
+  #      'https://<GIT_USERNAME>:<GIT_APP_PASSWORD>@github.com/<GIT_USERNAME>/<REPO_NAME>.git',
+  #      'app'
+  #     ]
+
+  # - name: gcr.io/cloud-builders/sed
+  #   args:
+  #     - '-i'
+  #     - 's/latest/develop/g'
+  #     - 'app/file.txt'
+  # - name: gcr.io/cloud-builders/git
+  #   args:
+  #     - -C
+  #     - app
+  #     - add
+  #     - file.txt
+  # - name: gcr.io/cloud-builders/git
+  #   args:
+  #     - -C
+  #     - app
+  #     - commit
+  #     - -m
+  #     - "Replace latest with develop and vice versa in file.txt"
+  # - name: gcr.io/cloud-builders/git
+  #   args:
+  #     - -C
+  #     - app
+  #     - push
+
+  #   - name: gcr.io/cloud-builders/sed
+  #     args:
+  #       - '-i'
+  #       - 's/latest/develop/g'
+  #       - 'app/file.txt'
+  #   - name: gcr.io/cloud-builders/git
+  #     args:
+  #       - -C
+  #       - app
+  #       - add
+  #       - file.txt
+  #   - name: gcr.io/cloud-builders/git
+  #     args:
+  #       - -C
+  #       - app
+  #       - commit
+  #       - -m
+  #       - "Replace latest with develop and vice versa in file.txt"
+  #   - name: gcr.io/cloud-builders/git
+  #     args:
+  #       - -C
+  #       - app
+  #       - push
+
+  # # [END cloudbuild_quickstart_build]
