@@ -12,15 +12,15 @@ steps:
       [
         'build',
         '--cache-from',
-        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:latest',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:latest',
         '-t',
-        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:$SHORT_SHA',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:$SHORT_SHA',
         '-t',
-        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:latest',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:latest',
         '-t',
-        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:release',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:release',
         '-t',
-        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:develop',
+        'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:develop',
         '.',
       ]
   - name: 'gcr.io/cloud-builders/git'
@@ -28,10 +28,10 @@ steps:
 
 images:
   [
-    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:$SHORT_SHA',
-    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:latest',
-    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:develop',
-    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/gamepay/$_IMAGE_NAME:release',
+    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:$SHORT_SHA',
+    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:latest',
+    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:develop',
+    'asia-docker.pkg.dev/powerful-gizmo-360005/asia.gcr.io/tradesavvy/$_IMAGE_NAME:release',
   ]
 
   # - name: gcr.io/cloud-builders/git
