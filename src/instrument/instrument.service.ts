@@ -15,8 +15,18 @@ export class InstruementService {
  
 
   healthCheck(): any {
-    this.logger.log("TEST ")
+    this.logger.log("Health Check ")
     const pattern = { cmd: 'healthCheck' };
+    return this.instruementClient.send<any>(pattern, {});
+  }
+  generateSession(payload: any) {
+    const pattern = { cmd: 'generateSession' };
+    this.logger.log('generateSession');
+    return this.instruementClient.send<any>(pattern, payload);
+  }
+  getInstruments():any {
+    const pattern = { cmd: 'loadInstrument' };
+    this.logger.log('GetInstruments');
     return this.instruementClient.send<any>(pattern, {});
   }
 
