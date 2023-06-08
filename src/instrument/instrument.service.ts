@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class InstruementService {
+  
   private readonly logger = new Logger(InstruementService.name);
 
   constructor(
@@ -24,10 +25,15 @@ export class InstruementService {
     this.logger.log('generateSession');
     return this.instruementClient.send<any>(pattern, payload);
   }
-  getInstruments():any {
+  loadInstrument():any {
     const pattern = { cmd: 'loadInstrument' };
     this.logger.log('GetInstruments');
     return this.instruementClient.send<any>(pattern, {});
+  }
+  getInstruments(payload:any): any {
+    const pattern = { cmd: 'getInstruments' };
+    this.logger.log('GetInstruments'+ payload);
+    return this.instruementClient.send<any>(pattern, payload);
   }
 
 }
