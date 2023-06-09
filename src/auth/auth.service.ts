@@ -82,12 +82,14 @@ export class AuthService {
   }
 
   generateJWT2FAToken(
-    email: string,
-    username: string,
+    user: any,
     isTwoFactorAuthenticationEnabled: any,
     isTwoFactorAuthenticated: boolean,
     isRemember = true,
   ) {
+    console.log(user,"user")
+    const username = user.userName;
+    const email = user.email;
     const payload = { email, username };
     this.logger.log('Login Payload :' + JSON.stringify(payload));
     const sixMonthsInSeconds = 157680000;
@@ -96,6 +98,8 @@ export class AuthService {
     this.logger.log('secret from config: ' + secret);
     return {
       email: email,
+      username: username,
+      profileImgUrl: user.profileImgUrl,
       isTwoFactorAuthenticationEnabled: isTwoFactorAuthenticationEnabled,
       isTwoFactorAuthenticated: isTwoFactorAuthenticated,
       access_token: this.jwtService.sign(payload, { secret: secret }),
@@ -156,8 +160,7 @@ export class AuthService {
     const user = await lastValueFrom(result);
 
     const data = this.generateJWT2FAToken(
-      user.email,
-      user.userName,
+      user,
       !!user.isTwoFactorAuthenticationEnabled,
       true,
     );
