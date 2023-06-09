@@ -1,21 +1,28 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { ConfigModule } from '@nestjs/config';
+import { UserService } from './user.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
     ClientsModule.register([
+      {
+        name: 'AUTH',
+        transport: Transport.RMQ,
+        options: {
+          urls: [process.env.RMQ_TRANSPORT_URL || ''],
+          queue: process.env.RMQ_AUTH_QUEUE_NAME || 'auth_queue',
+          queueOptions: {
+            durable: false,
+          },
+        },
+      },
       {
         name: 'USER',
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_USER_QUEUE_NAME || 'ts_user_queue',
+          queue: process.env.RMQ_USER_QUEUE_NAME || 'user_queue',
           queueOptions: {
             durable: false,
           },
@@ -23,7 +30,7 @@ import { ConfigModule } from '@nestjs/config';
       },
     ]),
   ],
-  providers: [UserService],
   controllers: [UserController],
+  providers: [UserService],
 })
-export class UserServiceModule {}
+export class UserModule {}
