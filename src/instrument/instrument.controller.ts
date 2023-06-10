@@ -21,7 +21,15 @@ export class InstrumentController {
   }
 
   @Get('/:instrumentName/:type/:expiryCycle')
-  getInstrument(@Param('instrumentName') instrumentName: string,@Param('type') strike: string,@Param('expiryCycle') expiryCycle: string): any {
-    return this.instrumentService.getInstruments({instrumentName:instrumentName, type:strike, expiryCycle:expiryCycle});
+  getInstrument(
+    @Param('instrumentName') instrumentName: string,
+    @Param('type') strike: string,
+    @Param('expiryCycle') expiryCycle: string,
+  ): any {
+    return this.instrumentService.getInstruments({
+      instrumentName: instrumentName,
+      type: strike,
+      expiryCycle: expiryCycle,
+    });
   }
 }
