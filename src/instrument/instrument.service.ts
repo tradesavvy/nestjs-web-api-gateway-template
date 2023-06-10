@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class InstruementService {
@@ -12,10 +11,8 @@ export class InstruementService {
     @Inject('INSTRUEMENT') private readonly instruementClient: ClientProxy,
   ) {}
 
- 
-
   healthCheck(): any {
-    this.logger.log("Health Check ")
+    this.logger.log('Health Check ');
     const pattern = { cmd: 'healthCheck' };
     return this.instruementClient.send<any>(pattern, {});
   }
@@ -24,10 +21,14 @@ export class InstruementService {
     this.logger.log('generateSession');
     return this.instruementClient.send<any>(pattern, payload);
   }
-  getInstruments():any {
+  loadInstrument(): any {
     const pattern = { cmd: 'loadInstrument' };
     this.logger.log('GetInstruments');
     return this.instruementClient.send<any>(pattern, {});
   }
-
+  getInstruments(payload: any): any {
+    const pattern = { cmd: 'getInstruments' };
+    this.logger.log('GetInstruments' + payload);
+    return this.instruementClient.send<any>(pattern, payload);
+  }
 }
