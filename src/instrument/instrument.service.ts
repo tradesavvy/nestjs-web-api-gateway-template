@@ -31,4 +31,9 @@ export class InstruementService {
     this.logger.log('GetInstruments' + payload);
     return this.instruementClient.send<any>(pattern, payload);
   }
+  getInstrumentByExchange(payload: string): any {
+    const pattern = { cmd: 'getInstrumentByExchange' };
+    this.logger.log('getInstrumentByExchange' + payload);
+    return this.instruementClient.send<any>(pattern, payload);
+  }
 }
