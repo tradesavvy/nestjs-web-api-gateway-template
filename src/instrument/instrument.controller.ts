@@ -17,6 +17,6 @@ export class InstrumentController {
   }
   @Get('/load-instrument')
   loadInstrument(): any {
-    return this.instrumentService.getInstruments();
+    return this.instrumentService.getInstruments(null);
   }
 }
