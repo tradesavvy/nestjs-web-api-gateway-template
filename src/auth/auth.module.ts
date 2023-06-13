@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { PassportModule } from '@nestjs/passport';
-import { AxiosQuestService } from 'src/common/axios/quest.service';
 import { JwtAuthModule } from 'src/jwt/jwt-auth.module';
 import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
@@ -57,11 +56,7 @@ import { LocalStrategy } from './strategies/local.strategy';
     UserModule,
     JwtAuthModule,
   ],
-  providers: [
-    AuthService,
-    UserService,
-    LocalStrategy,
-  ],
+  providers: [AuthService, UserService, LocalStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}

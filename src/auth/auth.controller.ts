@@ -17,10 +17,7 @@ import {
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
-import { lastValueFrom, Observable } from 'rxjs';
-import { AxiosQuestService } from 'src/common/axios/quest.service';
-import { CreateGoogleUserDTO } from 'src/common/dtos/create-google-user.request.dto';
-import { CreateSteamUserDTO } from 'src/common/dtos/create-steam-user.request.dto';
+import { Observable, lastValueFrom } from 'rxjs';
 import { CreateUserDTO } from 'src/common/dtos/create-user.request.dto';
 import { UserResponseDto } from 'src/common/dtos/user.response.dto';
 import { UserDeletedEvent } from 'src/common/event/user.deleted.event';
@@ -29,8 +26,6 @@ import { UserRegisterEvent } from 'src/common/event/user.register.event';
 import { UserVerifiedEvent } from 'src/common/event/user.verify.event';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
-import { UserActionEvent } from 'src/common/event/user.action.event';
-import { JwtAuthGuard } from 'src/jwt/jwt-auth.guard';
 
 @Controller()
 export class AuthController {
@@ -199,129 +194,6 @@ export class AuthController {
     }
   }
 
-  // @Post('steam-sign')
-  // async steamSignIn(@Body() createSteamUserDTO: CreateSteamUserDTO) {
-  //   this.logger.log(
-  //     `sign-in steam user: ${JSON.stringify(createSteamUserDTO)}`,
-  //   );
-  //   const existUser = await this.authService.getSteamUserBySteamId(
-  //     createSteamUserDTO,
-  //   );
-  //   const userCreatedInAuth = await lastValueFrom(existUser);
-  //   this.logger.log(
-  //     'Received enrichedUser from auth for verification: ' +
-  //       JSON.stringify(userCreatedInAuth),
-  //   );
-
-  //   if (userCreatedInAuth?.isNewRegister) {
-  //     const findSteamUser = await this.socialService.findSteamSyncBySteamId(
-  //       createSteamUserDTO.id,
-  //     );
-  //     const steamUser = await lastValueFrom(findSteamUser);
-  //     console.log(steamUser, 'steamUser');
-  //     if (steamUser.data !== null) {
-  //       await this.authService.deleteUser(userCreatedInAuth.userName!);
-  //       this.logger.log(`steam user already synced another account`);
-  //       throw new HttpException(
-  //         'Your steam account is already synced to another account',
-  //         HttpStatus.BAD_REQUEST,
-  //       );
-  //     }
-  //     const createUserDTO = new CreateUserDTO();
-  //     createUserDTO.firstName = createSteamUserDTO.displayName;
-  //     createUserDTO.lastName = '';
-  //     createUserDTO.userName = userCreatedInAuth.userName || '';
-  //     createUserDTO.email = userCreatedInAuth.email || '';
-  //     createUserDTO.isVerified = true;
-  //     createUserDTO.gender = '';
-  //     createUserDTO.country = 'singapore';
-  //     createUserDTO.countryCode = 'sg';
-  //     createUserDTO.phoneNumber = 0;
-  //     createUserDTO.dialCode = 65;
-  //     createUserDTO.profileImgUrl = userCreatedInAuth.profileImgUrl!;
-  //     createUserDTO.referralCode = '';
-
-  //     const userCreatedObservable =
-  //       this.userService.createSteamUser(createUserDTO);
-  //     const userCreated = await lastValueFrom(userCreatedObservable);
-  //     if (userCreated) {
-  //       this.logger.log(
-  //         'Adding user to Auth service' + JSON.stringify(userCreated),
-  //       );
-  //       this.emitUserCreatedEvent(createUserDTO);
-  //       await new Promise((resolve) => setTimeout(resolve, 1500)); // 3 sec
-  //       this.logger.log(
-  //         `connect steam while register user: ${userCreated.userName}`,
-  //       );
-  //       const connectSteam = await this.socialService.socialSteamConnect(
-  //         createSteamUserDTO.profile,
-  //         userCreated.userName,
-  //       );
-  //       const connectSteamResponse = await lastValueFrom(connectSteam);
-  //       this.logger.log(
-  //         JSON.stringify(connectSteamResponse) + ' connectSteamResponse',
-  //       );
-  //       this.socialService.updateActionDoneForPlatformAction(
-  //         new UserActionEvent('', userCreated.userName, 'steam', 'sync', true),
-  //       );
-  //       this.logger.log(`steam user synced`);
-  //       return await this.userLoginFromResponseDTO(userCreated, true);
-  //     }
-  //   } else {
-  //     return await this.userLoginFromResponseDTO(userCreatedInAuth);
-  //   }
-  // }
-
-  // @Post('google-sign')
-  // async googleSignIn(@Body() createGoogleUserDTO: CreateGoogleUserDTO) {
-  //   const existUser = await this.authService.getSocialUserByEmail(
-  //     createGoogleUserDTO.email,
-  //   );
-  //   const enrichedUser = await lastValueFrom(existUser);
-  //   this.logger.log(
-  //     'Received enrichedUser from auth for verification: ' +
-  //       JSON.stringify(enrichedUser),
-  //   );
-  //   if (enrichedUser.isError) {
-  //     this.logger.log('request for social signin');
-  //     const userCreatedInAuth = await this.createGoogleUserInAuthModule(
-  //       createGoogleUserDTO,
-  //     );
-  //     this.logger.log(
-  //       'register user data from auth model: ' +
-  //         JSON.stringify(userCreatedInAuth),
-  //     );
-  //     if (userCreatedInAuth) {
-  //       const createUserDTO = new CreateUserDTO();
-  //       createUserDTO.firstName = createGoogleUserDTO.firstName;
-  //       createUserDTO.lastName = createGoogleUserDTO.lastName;
-  //       createUserDTO.userName = userCreatedInAuth.userName;
-  //       createUserDTO.email = userCreatedInAuth.email;
-  //       createUserDTO.isVerified = true;
-  //       createUserDTO.gender = '';
-  //       createUserDTO.country = 'singapore';
-  //       createUserDTO.countryCode = 'sg';
-  //       createUserDTO.phoneNumber = 0;
-  //       createUserDTO.dialCode = 65;
-  //       createUserDTO.profileImgUrl = userCreatedInAuth.profileImgUrl;
-  //       createUserDTO.referralCode = '';
-  //       const userCreatedObservable =
-  //         this.userService.createUser(createUserDTO);
-  //       const userCreated = await lastValueFrom(userCreatedObservable);
-  //       if (userCreated) {
-  //         this.logger.log(
-  //           'Adding user to Auth service' + JSON.stringify(userCreated),
-  //         );
-  //         this.emitUserCreatedEvent(createUserDTO);
-  //         return await this.userLoginFromResponseDTO(userCreated, true);
-  //       }
-  //     }
-  //   } else {
-  //     return await this.userLoginFromResponseDTO(enrichedUser);
-  //   }
-  //   return existUser;
-  // }
-
   private userLoginFromResponseDTO(userData: any, isNewRegister = false) {
     this.logger.log('Received request for social login: ' + userData.email);
     const jwtTokenObj = this.authService.generateJWTToken(
@@ -348,32 +220,6 @@ export class AuthController {
       'user.register',
       new UserRegisterEvent(createUserDTO.userName),
     );
-  }
-
-  private async createGoogleUserInAuthModule(
-    createGoogleUserDTO: CreateGoogleUserDTO,
-  ) {
-    let userCreatedInAuth;
-    try {
-      const userCreatedInAuthObservable = await this.authService.addGoogleUser(
-        createGoogleUserDTO,
-      );
-      userCreatedInAuth = await lastValueFrom(userCreatedInAuthObservable);
-    } catch (error) {
-      this.logger.error('error creating user: ', error);
-      if (error.code === 11000) {
-        throw new HttpException(
-          createGoogleUserDTO.email + ' already exists',
-          HttpStatus.CONFLICT,
-        );
-      } else {
-        throw new HttpException(
-          createGoogleUserDTO.email + ' already exists',
-          HttpStatus.CONFLICT,
-        );
-      }
-    }
-    return userCreatedInAuth;
   }
 
   private async createUserInAuthModule(createUserDTO: CreateUserDTO) {

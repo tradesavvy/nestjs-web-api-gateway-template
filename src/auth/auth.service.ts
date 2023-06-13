@@ -4,8 +4,6 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom, Observable } from 'rxjs';
-import { CreateGoogleUserDTO } from 'src/common/dtos/create-google-user.request.dto';
-import { ResponseDto } from 'src/common/dtos/response.dto';
 import { UserRequestDto } from 'src/common/dtos/user.request.dto';
 import { UserResponseDto } from 'src/common/dtos/user.response.dto';
 import { authenticator } from 'otplib';
@@ -28,12 +26,6 @@ export class AuthService {
     const pattern = { cmd: 'validateUserCredentials' };
 
     return this.authClient.send<string>(pattern, userReq);
-  }
-
-  getUserByEmail(payload: any): Observable<ResponseDto> {
-    const pattern = { cmd: 'getUserByEmail' };
-    this.logger.log('getUserByEmail --> ' + payload);
-    return this.authClient.send<ResponseDto>(pattern, payload);
   }
 
   getSocialUserByEmail(email: any): Observable<UserResponseDto> {
@@ -87,7 +79,7 @@ export class AuthService {
     isTwoFactorAuthenticated: boolean,
     isRemember = true,
   ) {
-    console.log(user,"user")
+    console.log(user, 'user');
     const username = user.userName;
     const email = user.email;
     const payload = { email, username };
@@ -174,11 +166,6 @@ export class AuthService {
   addUser(userCreated: CreateUserDTO): Observable<any> {
     const pattern = { cmd: 'addUser' };
     return this.authClient.send<any>(pattern, userCreated);
-  }
-
-  addGoogleUser(googleUserCreated: CreateGoogleUserDTO): Observable<any> {
-    const pattern = { cmd: 'addGoogleUser' };
-    return this.authClient.send<any>(pattern, googleUserCreated);
   }
 
   async deleteUser(username: string) {
