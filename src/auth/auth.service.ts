@@ -3,12 +3,11 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { ClientProxy } from '@nestjs/microservices';
-import { lastValueFrom, Observable } from 'rxjs';
-import { UserRequestDto } from 'src/common/dtos/user.request.dto';
-import { UserResponseDto } from 'src/common/dtos/user.response.dto';
 import { authenticator } from 'otplib';
 import { toDataURL } from 'qrcode';
+import { Observable, lastValueFrom } from 'rxjs';
 import { CreateUserDTO } from 'src/common/dtos/create-user.request.dto';
+import { UserRequestDto } from 'src/common/dtos/user.request.dto';
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
@@ -28,16 +27,10 @@ export class AuthService {
     return this.authClient.send<string>(pattern, userReq);
   }
 
-  getSocialUserByEmail(email: any): Observable<UserResponseDto> {
-    const pattern = { cmd: 'getSocialUserByEmail' };
-    this.logger.log('getSocialUserByEmail --> ' + email);
-    return this.authClient.send<UserResponseDto>(pattern, email);
-  }
-
-  getSteamUserBySteamId(payload: any): Observable<UserResponseDto> {
-    const pattern = { cmd: 'getSteamUserBySteamId' };
-    this.logger.log('getSteamUserBySteamId --> ' + JSON.stringify(payload));
-    return this.authClient.send<UserResponseDto>(pattern, payload);
+  getUserByEmail(email: any): Observable<any> {
+    const pattern = { cmd: 'getUserByEmail' };
+    this.logger.log('getUserByEmail --> ' + email);
+    return this.authClient.send<any>(pattern, email);
   }
 
   resetPassword(payload: any): Observable<any> {

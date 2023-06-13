@@ -194,26 +194,6 @@ export class AuthController {
     }
   }
 
-  private userLoginFromResponseDTO(userData: any, isNewRegister = false) {
-    this.logger.log('Received request for social login: ' + userData.email);
-    const jwtTokenObj = this.authService.generateJWTToken(
-      userData.email,
-      userData.userName,
-      false,
-    );
-
-    const userResponseDto = new UserResponseDto();
-
-    userResponseDto.userName = userData.userName || '';
-    userResponseDto.email = userData.email || '';
-    userResponseDto.profileImgUrl = userData.profileImgUrl || '';
-    userResponseDto.accessToken = jwtTokenObj.access_token;
-    userResponseDto.isNewRegister = isNewRegister;
-    this.logger.log('emitting UserLoginEvent... ');
-    this.emitter.emit('user.login', new UserLoginEvent(userData.userName));
-    return userResponseDto;
-  }
-
   private emitUserCreatedEvent(createUserDTO: CreateUserDTO) {
     this.logger.log('emitting UserRegisterEvent... ');
     this.emitter.emit(

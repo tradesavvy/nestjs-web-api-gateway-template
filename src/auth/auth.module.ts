@@ -40,17 +40,6 @@ import { LocalStrategy } from './strategies/local.strategy';
           },
         },
       },
-      {
-        name: 'SOCIAL',
-        transport: Transport.RMQ,
-        options: {
-          urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_SOCIAL_QUEUE_NAME || 'social_queue',
-          queueOptions: {
-            durable: false,
-          },
-        },
-      },
     ]),
     PassportModule,
     UserModule,

@@ -15,8 +15,6 @@ export class UserResponseDto {
 
   isNewRegister?: boolean;
 
-  isSocialSignin?: boolean;
-
   @IsString()
   errorMessage?: string;
 }
