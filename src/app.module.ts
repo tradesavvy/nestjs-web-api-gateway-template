@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { InstrumentModule } from './instrument/instrument.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { TickerModule } from './ticker/ticker.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
     InstrumentModule,
     UserModule,
     AuthModule,
+    TickerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

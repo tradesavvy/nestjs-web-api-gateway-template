@@ -7,7 +7,6 @@ export class InstruementService {
   private readonly logger = new Logger(InstruementService.name);
 
   constructor(
-    // @ts-ignore
     @Inject('INSTRUEMENT') private readonly instruementClient: ClientProxy,
   ) {}
 
