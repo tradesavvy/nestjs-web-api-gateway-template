@@ -13,18 +13,13 @@ export class CreateUserDTO {
   password: string;
   profile: string;
   profileImgUrl: string;
-  referralCode: string;
   @IsString()
   firstName: string;
   @IsString()
   lastName: string;
   phoneNumber: number;
   isVerified: boolean;
-  country: string;
-  countryCode: string;
   dialCode: number;
-  @IsString()
-  gender: string;
   verificationToken: string;
   passwordToken: string;
   passwordTokenExpirationDate: Date;

@@ -161,10 +161,6 @@ export class AuthController {
         this.logger.log(`after reg from auth: ${userCreatedInAuth.data}`);
         createUserDTO.userName = userCreatedInAuth.data.userName;
         createUserDTO.password = userCreatedInAuth.data.password;
-        createUserDTO.referralCode =
-          createUserDTO.referralCode === undefined
-            ? ''
-            : createUserDTO.referralCode;
         createUserDTO.profileImgUrl =
           createUserDTO.profileImgUrl === undefined
             ? ''

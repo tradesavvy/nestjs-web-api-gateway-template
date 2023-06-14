@@ -6,8 +6,8 @@ import {
   OnApplicationBootstrap,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateUserDTO } from 'gamepay-dtos';
 import { Observable } from 'rxjs';
+import { CreateUserDTO } from 'src/common/dtos/create-user.request.dto';
 
 @Injectable()
 export class UserService implements OnApplicationBootstrap {

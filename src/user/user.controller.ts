@@ -14,6 +14,8 @@ export class UserController {
     private readonly emitter: EventEmitter2,
   ) {}
 
+  
+
   @Get('ping')
   ping(): Observable<number> {
     this.logger.log('ping...');
