@@ -11,9 +11,9 @@ export class InstruementService {
     @Inject('INSTRUEMENT') private readonly instruementClient: ClientProxy,
   ) {}
 
-  healthCheck(): any {
-    this.logger.log('Health Check ');
-    const pattern = { cmd: 'healthCheck' };
+  ping(): any {
+    this.logger.log('ping Check ');
+    const pattern = { cmd: 'ping' };
     return this.instruementClient.send<any>(pattern, {});
   }
   generateSession(payload: any) {

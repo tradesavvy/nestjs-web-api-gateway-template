@@ -7,9 +7,9 @@ export class InstrumentController {
 
   constructor(private readonly instrumentService: InstruementService) {}
 
-  @Get('health-check')
-  healthCheck(): any {
-    return this.instrumentService.healthCheck();
+  @Get('ping')
+  ping(): any {
+    return this.instrumentService.ping();
   }
   @Get('/generate-session/:token')
   generateSession(@Param('token') token: string): any {
