@@ -209,6 +209,7 @@ export class AuthController {
         createUserDTO,
       );
       userCreatedInAuth = await lastValueFrom(userCreatedInAuthObservable);
+      return userCreatedInAuth;
     } catch (error) {
       this.logger.error('error creating user: ', error);
       if (error.code === 11000) {
@@ -223,7 +224,6 @@ export class AuthController {
         );
       }
     }
-    return userCreatedInAuth;
   }
 
   @Post('/:username/reset-password')
