@@ -15,8 +15,7 @@ import { ConfigModule } from '@nestjs/config';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue:
-            process.env.RMQ_INSTRUMENT_QUEUE_NAME || 'ts_instruement_queue',
+          queue: process.env.RMQ_INSTRUMENT_QUEUE_NAME || 'ts_instrument_queue',
           queueOptions: {
             durable: false,
           },
