@@ -6,6 +6,7 @@ import { InstrumentModule } from './instrument/instrument.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TickerModule } from './ticker/ticker.module';
+import { OmsModule } from './oms/oms.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { TickerModule } from './ticker/ticker.module';
     UserModule,
     AuthModule,
     TickerModule,
+    OmsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
