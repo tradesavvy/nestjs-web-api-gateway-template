@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
@@ -22,15 +30,15 @@ export class UserController {
     return this.userService.ping();
   }
 
-  @Post('/createRiskProfile')
+  @Post('/riskprofile')
   createRiskProfile(@Body() payload: any): any {
     return this.userRiskProfileService.createRiskProfile(payload);
   }
-  @Post('/updateRiskProfile')
-  updateRiskProfile(@Body() payload: any): any {
-    return this.userRiskProfileService.updateRiskProfile(payload);
+  @Put('/riskprofile/:id')
+  updateRiskProfile(@Body() payload: any, @Param('id') id: string): any {
+    return this.userRiskProfileService.updateRiskProfile(id, payload);
   }
-  @Get('/profile/:username')
+  @Get('/riskprofile/:username')
   getUserRiskProfiles(@Param('username') username: string): any {
     return this.userRiskProfileService.getRiskProfilesByUsername(username);
   }

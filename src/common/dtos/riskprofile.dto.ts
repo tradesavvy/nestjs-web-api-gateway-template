@@ -20,7 +20,7 @@ export class CreateRiskProfileDto {
   slPercentage: number;
 }
 export class UpdateRiskProfileDto {
-  riskProfileId: string;
+  riskProfileId?: string;
   profileName: string;
   userName: string;
   tolerance: number;
