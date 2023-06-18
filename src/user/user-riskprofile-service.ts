@@ -43,4 +43,10 @@ export class UserRiskProfileService {
     this.logger.log('getRiskProfilesByUsername' + payload);
     return this.userClient.send<any>(pattern, payload);
   }
+
+  getActiveRiskProfileByUsername(payload: string): any {
+    const pattern = { cmd: 'getActiveRiskProfileByUsername' };
+    this.logger.log('getActiveRiskProfileByUsername' + payload);
+    return this.userClient.send<any>(pattern, payload);
+  }
 }

@@ -42,4 +42,12 @@ export class UserController {
   getUserRiskProfiles(@Param('username') username: string): any {
     return this.userRiskProfileService.getRiskProfilesByUsername(username);
   }
+  @Get('/riskprofile/:username/active')
+  getActiveRiskProfileByUsername(@Param('username') username: string): any {
+    return this.userRiskProfileService.getActiveRiskProfileByUsername(username);
+  }
+  @Get('/mobile/:phoneNumber')
+  getUserByMobileNumber(@Param('phoneNumber') phoneNumber: string): any {
+    return this.userService.getUserByMobileNumber(phoneNumber);
+  }
 }

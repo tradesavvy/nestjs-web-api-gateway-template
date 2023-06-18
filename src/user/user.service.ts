@@ -46,4 +46,9 @@ export class UserService implements OnApplicationBootstrap {
     const payload = [1, 2, 3];
     return this.userClient.send<number>(pattern, payload);
   }
+  getUserByMobileNumber(payload: any): any {
+    const pattern = { cmd: 'getUserByMobileNumber' };
+    this.logger.log('getUserByMobileNumber' + payload);
+    return this.userClient.send<any>(pattern, payload);
+  }
 }
