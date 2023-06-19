@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TickerModule } from './ticker/ticker.module';
 import { OmsModule } from './oms/oms.module';
+import { SocialModule } from './social/social.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { OmsModule } from './oms/oms.module';
       isGlobal: true,
     }),
     InstrumentModule,
+    SocialModule,
     UserModule,
     AuthModule,
     TickerModule,
