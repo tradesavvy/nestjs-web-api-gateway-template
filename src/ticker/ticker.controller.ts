@@ -1,7 +1,9 @@
 import { Controller, Get, Logger } from '@nestjs/common';
 import { TickerService } from './ticker.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('ticker')
+@ApiTags('Ticker')
 export class TickerController {
   private readonly logger = new Logger(TickerController.name);
 

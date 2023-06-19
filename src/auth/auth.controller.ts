@@ -26,8 +26,10 @@ import { UserRegisterEvent } from 'src/common/event/user.register.event';
 import { UserVerifiedEvent } from 'src/common/event/user.verify.event';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller()
+@ApiTags('Auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
   constructor(

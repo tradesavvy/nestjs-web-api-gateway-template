@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  Inject,
-  Injectable,
-  Logger,
-  OnApplicationBootstrap,
-} from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
   CreateRiskProfileDto,

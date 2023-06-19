@@ -1,7 +1,9 @@
 import { Controller, Get, Logger, Param } from '@nestjs/common';
 import { InstruementService } from './instrument.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('instrument')
+@ApiTags('Instrument')
 export class InstrumentController {
   private readonly logger = new Logger(InstrumentController.name);
 

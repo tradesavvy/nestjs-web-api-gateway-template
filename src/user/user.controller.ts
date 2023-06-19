@@ -11,7 +11,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { UserService } from './user.service';
-import { UserRiskProfileService } from './user-riskprofile-service';
+import { UserRiskProfileService } from './user-riskprofile.service';
 
 @Controller('users')
 @ApiTags('Users')
