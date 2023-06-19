@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpStatus,
   Logger,
   Param,
   Post,
@@ -17,7 +16,7 @@ import {
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
-import { query, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { Observable, lastValueFrom } from 'rxjs';
 import { SocialService } from './social.service';
 

@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { DiscordSocialController } from './discord.social.controller';
-import { DiscordStrategy } from './discord.strategy';
 import { SocialController } from './social.controller';
 import { SocialService } from './social.service';
 import { SteamStrategy } from './steam.strategy';
@@ -23,7 +21,7 @@ import { TwitterStrategy } from './twitter.strategy';
       },
     ]),
   ],
-  providers: [SocialService, DiscordStrategy, TwitterStrategy, SteamStrategy],
-  controllers: [SocialController, DiscordSocialController],
+  providers: [SocialService, TwitterStrategy, SteamStrategy],
+  controllers: [SocialController],
 })
 export class SocialModule {}
