@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { TickerModule } from './ticker/ticker.module';
 import { OmsModule } from './oms/oms.module';
 import { SocialModule } from './social/social.module';
+import { ReferralModule } from './referral/referral.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SocialModule } from './social/social.module';
     AuthModule,
     TickerModule,
     OmsModule,
+    ReferralModule
   ],
   controllers: [AppController],
   providers: [AppService],
