@@ -34,4 +34,16 @@ export class ReferralService {
     return this.referralClient.send<any>(pattern,payload);
   }
 
+  getReferralByReferralCode(referralCode:string):Observable<ResponseDto>{
+    this.logger.log("FIND REFERRAL BY REFERRAL CODE")
+    const pattern = { cmd : 'getRefferalByReferralCode'};
+    return this.referralClient.send<any>(pattern,{referralCode});
+  }
+
+  createUserReferral(referralCode:string,referUsername:string):Observable<ResponseDto> { 
+    this.logger.log("CREATE USER REFERRAL")
+    const pattern = { cmd : 'createUserReferral'};
+    return this.referralClient.send<any>(pattern,{referUsername,referralCode});
+  }
+
 }

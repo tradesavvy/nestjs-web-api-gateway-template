@@ -17,6 +17,7 @@ export class CreateUserDTO {
   firstName: string;
   @IsString()
   lastName: string;
+  referralCode:string;
   phoneNumber: number;
   isVerified: boolean;
   dialCode: number;

@@ -9,6 +9,7 @@ import { UserService } from 'src/user/user.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './strategies/local.strategy';
+import { ReferralService } from 'src/referral/referral.service';
 
 @Module({
   imports: [
@@ -40,12 +41,23 @@ import { LocalStrategy } from './strategies/local.strategy';
           },
         },
       },
+      {
+        name: 'REFERRAL',
+        transport: Transport.RMQ,
+        options: {
+          urls: [process.env.RMQ_TRANSPORT_URL || ''],
+          queue: process.env.RMQ_REFERRAL_QUEUE_NAME || 'laabam_referral_queue',
+          queueOptions: {
+            durable: false,
+          },
+        },
+      },
     ]),
     PassportModule,
     UserModule,
-    JwtAuthModule,
+    JwtAuthModule
   ],
-  providers: [AuthService, UserService, LocalStrategy],
+  providers: [AuthService, UserService, ReferralService, LocalStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
