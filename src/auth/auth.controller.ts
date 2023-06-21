@@ -36,7 +36,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
-    private readonly referralService : ReferralService,
+    private readonly referralService: ReferralService,
     private readonly emitter: EventEmitter2,
   ) {}
 
@@ -148,14 +148,16 @@ export class AuthController {
         'AuthController sending createUserDTO... ' +
           JSON.stringify(createUserDTO),
       );
-      let findReferral:any;
-      if(createUserDTO.referralCode){
-        const result = await this.referralService.getReferralByReferralCode(createUserDTO.referralCode);
+      let findReferral: any;
+      if (createUserDTO.referralCode) {
+        const result = await this.referralService.getReferralByReferralCode(
+          createUserDTO.referralCode,
+        );
         findReferral = await lastValueFrom(result);
-        console.log(findReferral)
-        console.log(findReferral.data === null);
-        if((findReferral.status === 'error') || (findReferral.data === null)){
-          throw new HttpException( 'Referral code Not Found',
+        this.logger.log(`find Referral: ${JSON.stringify(findReferral)}`);
+        if (findReferral.status === 'error' || findReferral.data === null) {
+          throw new HttpException(
+            'Referral code Not Found',
             HttpStatus.BAD_REQUEST,
           );
         }
@@ -188,10 +190,15 @@ export class AuthController {
           this.logger.log(
             'Adding user to Auth service' + JSON.stringify(userCreated),
           );
-          if(createUserDTO.referralCode){
-           const restult =  this.referralService.createUserReferral(createUserDTO.referralCode,createUserDTO.userName);
-           const userReferral = await lastValueFrom(restult);
-           this.logger.log(`create User referral : ${JSON.stringify(userReferral)}`)
+          if (createUserDTO.referralCode) {
+            const restult = this.referralService.createUserReferral(
+              createUserDTO.referralCode,
+              createUserDTO.userName,
+            );
+            const userReferral = await lastValueFrom(restult);
+            this.logger.log(
+              `create User referral : ${JSON.stringify(userReferral)}`,
+            );
           }
           this.emitUserCreatedEvent(createUserDTO);
           return userCreated;
@@ -204,10 +211,7 @@ export class AuthController {
       }
     } catch (error) {
       this.logger.error(error);
-      throw new HttpException(
-        error.message,
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
