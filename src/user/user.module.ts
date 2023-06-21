@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { UserRiskProfileService } from './user-riskprofile.service';
+import { UserRiskProfileService } from './userriskprofile.service';
+import { UserbrokersService } from './userbrokers.service';
 
 @Module({
   imports: [
@@ -32,6 +33,6 @@ import { UserRiskProfileService } from './user-riskprofile.service';
     ]),
   ],
   controllers: [UserController],
-  providers: [UserService, UserRiskProfileService],
+  providers: [UserService, UserRiskProfileService, UserbrokersService],
 })
 export class UserModule {}

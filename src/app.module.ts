@@ -21,7 +21,7 @@ import { ReferralModule } from './referral/referral.module';
     AuthModule,
     TickerModule,
     OmsModule,
-    ReferralModule
+    ReferralModule,
   ],
   controllers: [AppController],
   providers: [AppService],

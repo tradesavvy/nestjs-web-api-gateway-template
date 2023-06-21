@@ -22,14 +22,10 @@ export class UserRiskProfileService {
     const pattern = { cmd: 'createRiskProfile' };
     return this.userClient.send<any>(pattern, createRiskProfileDto);
   }
-  updateRiskProfile(
-    riskProfileId: string,
-    updateRiskProfileDto: UpdateRiskProfileDto,
-  ) {
+  updateRiskProfile(updateRiskProfileDto: UpdateRiskProfileDto) {
     this.logger.log(
       'sending updateRiskProfileDto... ' + JSON.stringify(updateRiskProfileDto),
     );
-    updateRiskProfileDto.riskProfileId = riskProfileId;
     const pattern = { cmd: 'updateRiskProfile' };
     return this.userClient.send<any>(pattern, updateRiskProfileDto);
   }
