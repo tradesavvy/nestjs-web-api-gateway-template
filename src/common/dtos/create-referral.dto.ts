@@ -1,8 +1,8 @@
 // create-referral.dto.ts
 
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber, IsBoolean } from 'class-validator';
 
-export class CreateReferralDto {
+export class CreateOrUpdateReferralDto {
   @IsString()
   username: string;
 
@@ -13,6 +13,9 @@ export class CreateReferralDto {
   friendShare: string;
 
   @IsString()
-  notes : string;
+  referralCode: string;
+
+  @IsString()
+  status:string;
     
 }
