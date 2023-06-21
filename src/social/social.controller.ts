@@ -30,40 +30,6 @@ export class SocialController {
     private readonly emitter: EventEmitter2,
   ) {}
 
-  @Get('/discord/redirect')
-  @UseGuards(AuthGuard('discord'))
-  @Redirect(`${process.env.APP_FRONT_END_URL}/settings?socialConnect=true`, 301)
-  async redirect(
-    @Req() req: Request,
-    @Query('state') userName: string,
-    // @Res() res :Response
-  ): Promise<any> {
-    const discordDetails = req.user;
-    this.logger.log('Authorized Discord User' + JSON.stringify(req.user));
-    if (!discordDetails || userName === '') {
-      return {
-        url: `${process.env.APP_FRONT_END_URL}/settings?socialConnect=false&error="username_is_null"`,
-      };
-    } else {
-      const connectDiscord = await this.socialService.findOrCreateDiscord(
-        discordDetails,
-        userName,
-      );
-      const discordResult = await lastValueFrom(connectDiscord).then(
-        (data: any) => {
-          return data;
-        },
-      );
-      this.logger.log(discordResult, +' Last Value');
-      if (discordResult.status === 'error') {
-        return {
-          url: `${process.env.APP_FRONT_END_URL}/settings?socialConnect=false&error="Discord_already_synced"`,
-        };
-      }
-      return discordResult;
-    }
-  }
-
   @Get('/twitter/redirect/')
   @UseGuards(AuthGuard('twitter'))
   @Redirect(`${process.env.APP_FRONT_END_URL}/settings?socialConnect=true`)
@@ -81,45 +47,6 @@ export class SocialController {
       };
     }
     return twitterResult;
-  }
-
-  @Get('/:username/steam')
-  @UseGuards(AuthGuard('steam'))
-  steamLogin() {
-    return;
-  }
-
-  @Get('/steam/redirect')
-  @UseGuards(AuthGuard('steam'))
-  @Redirect(`${process.env.APP_FRONT_END_URL}/settings?socialConnect=true`)
-  async steamRedirect(
-    @Req() req: Request,
-    @Query('username') username: string,
-  ): Promise<any> {
-    const steamDetails = req.user;
-    this.logger.log('Authorized Steam User' + JSON.stringify(req.user));
-    if (!steamDetails || username === '') {
-      return {
-        url: `${process.env.APP_FRONT_END_URL}/settings?socialConnect=false&error="username is null"`,
-      };
-    } else {
-      const connectSteam = await this.socialService.socialSteamConnect(
-        steamDetails,
-        username,
-      );
-      const steamResult = await lastValueFrom(connectSteam).then(
-        (data: any) => {
-          return data;
-        },
-      );
-      this.logger.log(steamResult, +'Last Value');
-      if (steamResult.status === 'error') {
-        return {
-          url: `${process.env.APP_FRONT_END_URL}/settings?socialConnect=false&error="Steam_already_synced"`,
-        };
-      }
-      return steamResult;
-    }
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -182,17 +109,6 @@ export class SocialController {
     }
   }
 
-  @Get('/steam/users')
-  async getAllSteamUser(@Res() res: Response) {
-    this.logger.log(`getAllSteamUsers...`);
-    const result$ = this.socialService.getAllSocialSteam();
-    const result = await lastValueFrom(result$);
-    return res.status(result.statusCode || 400).json({
-      status: result.status,
-      data: result.data,
-      message: result.message,
-    });
-  }
 
   @Get('/users/:username/friend')
   async getFriends(
@@ -486,6 +402,16 @@ export class SocialController {
     return result;
   }
 
+  @Post('/user/whatsapp')
+  async saveWhatAPPInfo(@Body() payload: any): Promise<any> {
+    this.logger.log('Social Handle for telegram ... ' + payload);
+    const result$ = this.socialService.updateUserWhatAPPHandle(
+      payload.username,
+      payload.mobileNumber,
+    );
+    const result = await lastValueFrom(result$);
+    return result;
+  }
   @Get('/twitter/users/:username/handleFollow')
   async findTwitterUserFollowerByUsername(
     @Param('username') username: string,

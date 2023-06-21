@@ -178,6 +178,23 @@ export class SocialService {
     });
   }
 
+  updateUserWhatAPPHandle(
+    username: string,
+    mobileNumber: string,
+  ): Observable<ResponseDto> {
+    const pattern = { cmd: 'updateUserWhatAPPHandle' };
+    this.logger.log(
+      'updateUserWhatAPPHandle: for Username: ' +
+        username +
+        'with Social: ' +
+        mobileNumber,
+    );
+    return this.socialClient.send<ResponseDto>(pattern, {
+      username,
+      mobileNumber,
+    });
+  }
+
   findTwitterFollowerByUsername(payload: any): Observable<ResponseDto> {
     const pattern = { cmd: 'findTwitterFollower' };
     this.logger.log('findTwitterFollower: for Username: ' + payload.username);
