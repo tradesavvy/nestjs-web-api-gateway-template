@@ -8,8 +8,8 @@ export class OmsService {
   constructor(@Inject('OMS') private readonly omsClient: ClientProxy) {}
   ping(): any {
     this.logger.log('ping Check ');
-    const pattern = { cmd: 'ping' };
-    return this.omsClient.send<any>(pattern, {});
+    const pattern = { cmd: 'pingTickerFromTrade' };
+    return this.omsClient.send<any>(pattern, { data: 'pingTickerFromTrade' });
   }
   convertUserMessageToOrder(payload: any): any {
     this.logger.log('convertUserMessageToOrder ' + JSON.stringify(payload));
