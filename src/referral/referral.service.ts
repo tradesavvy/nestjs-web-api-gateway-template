@@ -29,4 +29,9 @@ export class ReferralService {
     return this.referralClient.send<any>(pattern,payload);
   }
 
+  delete(payload:any):Observable<ResponseDto>{
+    const pattern = { cmd : 'deleteReferral'};
+    return this.referralClient.send<any>(pattern,payload);
+  }
+
 }

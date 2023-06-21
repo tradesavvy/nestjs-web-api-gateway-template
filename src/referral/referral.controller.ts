@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Logger, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Res } from '@nestjs/common';
 import { ReferralService } from './referral.service';
 import { lastValueFrom } from 'rxjs';
 import { Response } from 'express';
@@ -40,6 +40,19 @@ export class ReferralController {
     this.logger.log("UPDATE REFERRAL")
     this.logger.log(`payload: ${JSON.stringify(updateRefferalDto)}`);
     const result$ = this.referralService.update(updateRefferalDto);
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    }); 
+  }
+
+  @Delete(':id')
+  async deletReferral(@Param('id') id: string, @Res() res: Response){
+    this.logger.log("UPDATE REFERRAL")
+    this.logger.log(`payload: ${JSON.stringify(id)}`);
+    const result$ = this.referralService.delete({id});
     const result = await lastValueFrom(result$);
     return res.status(result.statusCode || 400).json({
       status: result.status,
