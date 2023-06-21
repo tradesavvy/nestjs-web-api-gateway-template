@@ -24,4 +24,9 @@ export class ReferralService {
     return this.referralClient.send<any>(pattern,payload);
   }
 
+  update(payload:any):Observable<ResponseDto>{
+    const pattern = { cmd : 'updateReferral'};
+    return this.referralClient.send<any>(pattern,payload);
+  }
+
 }
