@@ -9,6 +9,7 @@ export class OmsService {
   ping(): any {
     this.logger.log('ping Check ');
     const pattern = { cmd: 'pingTickerFromTrade' };
+    // this.logger.log('ticker client ' + JSON.stringify(this.omsClient));
     return this.omsClient.send<any>(pattern, { data: 'pingTickerFromTrade' });
   }
   convertUserMessageToOrder(payload: any): any {
