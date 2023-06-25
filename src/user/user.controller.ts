@@ -1,13 +1,8 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
   Logger,
   Param,
-  Post,
-  Put,
-  Req,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -17,14 +12,7 @@ import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { UserRiskProfileService } from './userriskprofile.service';
 import { UserbrokersService } from './userbrokers.service';
-import {
-  ConnectUserBroker,
-  CreateUserBrokerDto,
-  DeleteUserBrokerDto,
-  UpdateSortOrderDto,
-  UpdateUserBrokerDto,
-  UserBroker,
-} from 'src/common/dtos/userbrokers.dto';
+
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')

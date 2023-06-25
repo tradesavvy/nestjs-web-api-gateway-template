@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Logger,
   Param,
@@ -12,15 +11,7 @@ import {
 } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
-import { UserbrokersService } from './userbrokers.service';
-import {
-  ConnectUserBroker,
-  CreateUserBrokerDto,
-  DeleteUserBrokerDto,
-  UpdateSortOrderDto,
-  UpdateUserBrokerDto,
-  UserBroker,
-} from 'src/common/dtos/userbrokers.dto';
+
 import { AuthGuard } from '@nestjs/passport';
 import { UserRiskProfileService } from './userriskprofile.service';
 
