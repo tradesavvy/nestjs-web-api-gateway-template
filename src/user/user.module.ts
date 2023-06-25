@@ -4,6 +4,8 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { UserRiskProfileService } from './userriskprofile.service';
 import { UserbrokersService } from './userbrokers.service';
+import { UserBrokersController } from './userbroker.controller';
+import { UserRiskProfileController } from './userriskprofile.controller';
 
 @Module({
   imports: [
@@ -32,7 +34,11 @@ import { UserbrokersService } from './userbrokers.service';
       },
     ]),
   ],
-  controllers: [UserController],
+  controllers: [
+    UserController,
+    UserBrokersController,
+    UserRiskProfileController,
+  ],
   providers: [UserService, UserRiskProfileService, UserbrokersService],
 })
 export class UserModule {}
