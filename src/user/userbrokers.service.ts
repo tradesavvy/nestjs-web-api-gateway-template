@@ -18,7 +18,11 @@ export class UserbrokersService {
     const pattern = { cmd: 'createUserBroker' };
     return this.userClient.send<any>(pattern, dto);
   }
-
+  getuserBrokers(payload: any): any {
+    const pattern = { cmd: 'getuserBrokers' };
+    this.logger.log('getuserBrokers' + payload);
+    return this.userClient.send<any>(pattern, payload);
+  }
   async updateUserBroker(dto: any): Promise<any> {
     this.logger.log('Received request for userBrokersService: ' + dto);
     const pattern = { cmd: 'updateUserBroker' };

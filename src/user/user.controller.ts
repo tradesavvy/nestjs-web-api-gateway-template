@@ -71,6 +71,14 @@ export class UserController {
     );
   }
   @UseGuards(AuthGuard('jwt'))
+  @Get('userbroker')
+  getuserBrokers(@Req() req: any): any {
+    return this.userbrokersService.getuserBrokers({
+      userName: req.user.username,
+    });
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Get('riskprofile/:username/active')
   getActiveRiskProfileByUsername(
     @Req() req: any,
