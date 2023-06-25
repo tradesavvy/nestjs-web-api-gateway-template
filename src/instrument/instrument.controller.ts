@@ -1,6 +1,7 @@
-import { Controller, Get, Logger, Param } from '@nestjs/common';
+import { Controller, Get, Logger, Param, UseGuards } from '@nestjs/common';
 import { InstruementService } from './instrument.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('instrument')
 @ApiTags('Instrument')
@@ -13,20 +14,23 @@ export class InstrumentController {
   ping(): any {
     return this.instrumentService.ping();
   }
-  @Get('/generate-session/:token')
+  @UseGuards(AuthGuard('jwt'))
+  @Get('generate-session/:token')
   generateSession(@Param('token') token: string): any {
     return this.instrumentService.generateSession(token);
   }
-  @Get('/load-instrument')
+  @UseGuards(AuthGuard('jwt'))
+  @Get('load-instrument')
   loadInstrument(): any {
     return this.instrumentService.loadInstrument();
   }
-  @Get('/:exchange')
+  @UseGuards(AuthGuard('jwt'))
+  @Get(':exchange')
   getInstrumentByExchange(@Param('exchange') exchange: string): any {
     return this.instrumentService.getInstrumentByExchange(exchange);
   }
-
-  @Get('/:instrumentName/:type/:expiryCycle')
+  @UseGuards(AuthGuard('jwt'))
+  @Get(':instrumentName/:type/:expiryCycle')
   getInstrument(
     @Param('instrumentName') instrumentName: string,
     @Param('type') strike: string,

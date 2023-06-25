@@ -45,13 +45,13 @@ export class UserController {
     return this.userService.ping();
   }
   @UseGuards(AuthGuard('jwt'))
-  @Post('/riskprofile')
+  @Post('riskprofile')
   createRiskProfile(@Req() req: any, @Body() payload: any): any {
     payload.userName = req.user.username;
     return this.userRiskProfileService.createRiskProfile(payload);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Put('/riskprofile/:userName/:id')
+  @Post('riskprofile/:userName/:id')
   updateRiskProfile(
     @Req() req: any,
     @Body() dto: any,
@@ -64,14 +64,14 @@ export class UserController {
     return this.userRiskProfileService.updateRiskProfile(dto);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Get('/riskprofile')
+  @Get('riskprofile')
   getUserRiskProfiles(@Req() req: any): any {
     return this.userRiskProfileService.getRiskProfilesByUsername(
       req.user.username,
     );
   }
   @UseGuards(AuthGuard('jwt'))
-  @Get('/riskprofile/:username/active')
+  @Get('riskprofile/:username/active')
   getActiveRiskProfileByUsername(
     @Req() req: any,
     @Param('username') username: string,
@@ -80,12 +80,12 @@ export class UserController {
     return this.userRiskProfileService.getActiveRiskProfileByUsername(username);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Get('/mobile/:phoneNumber')
+  @Get('mobile/:phoneNumber')
   getUserByMobileNumber(@Param('phoneNumber') phoneNumber: string): any {
     return this.userService.getUserByMobileNumber(phoneNumber);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Post('/userbroker')
+  @Post('userbroker')
   createUserBroker(@Req() req: any, @Body() dto: CreateUserBrokerDto): any {
     this.logger.log('Received request for createUserBroker: ' + dto);
     this.authorizationCheck(req, dto.userName);
@@ -93,7 +93,7 @@ export class UserController {
     return this.userbrokersService.createUserBroker(dto);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Put('/userbroker/:username/:id')
+  @Post('userbroker/:username/:id')
   updateUserBroker(
     @Req() req: any,
     @Body() dto: UpdateUserBrokerDto,
@@ -107,7 +107,7 @@ export class UserController {
     return this.userbrokersService.updateUserBroker(dto);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Put('/disconnect/:username')
+  @Post('userbroker/disconnect/:username')
   disconnectUserBroker(
     @Req() req: any,
     @Body() dto: UserBroker,
@@ -122,7 +122,7 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Put('/connect/:username')
+  @Post('userbroker/connect/:username')
   connectUserBroker(
     @Req() req: any,
     @Body() dto: ConnectUserBroker,
@@ -134,7 +134,7 @@ export class UserController {
     return this.userbrokersService.connectUserBroker(dto);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Put('/userbroker/activate/:username')
+  @Post('userbroker/activate/:username')
   enableTrade(
     @Req() req: any,
     @Body() dto: UserBroker,
@@ -146,7 +146,7 @@ export class UserController {
     return this.userbrokersService.enableTrade(dto);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Put('/userbroker/sort/:username')
+  @Post('userbroker/sort/:username')
   updateSortOrder(
     @Req() req: any,
     @Body() dto: UpdateSortOrderDto,
@@ -158,7 +158,7 @@ export class UserController {
     return this.userbrokersService.updateSortOrder(dto);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Delete('/userbroker/:username/:id')
+  @Delete('userbroker/:username/:id')
   deleteUserBroker(
     @Req() req: any,
     @Param('username') username: string,
