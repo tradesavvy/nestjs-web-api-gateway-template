@@ -12,6 +12,9 @@ export class UserbrokersService {
   ) {}
 
   async createUserBroker(dto: any): Promise<any> {
+    this.logger.log(
+      'Received request for createUserBroker: ' + JSON.stringify(dto),
+    );
     const pattern = { cmd: 'createUserBroker' };
     return this.userClient.send<any>(pattern, dto);
   }

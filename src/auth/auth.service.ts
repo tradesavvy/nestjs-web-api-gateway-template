@@ -27,10 +27,10 @@ export class AuthService {
     return this.authClient.send<string>(pattern, userReq);
   }
 
-  getUserByEmail(email: any): Observable<any> {
+  getUserByEmail(payload: any): Observable<any> {
     const pattern = { cmd: 'getUserByEmail' };
-    this.logger.log('getUserByEmail --> ' + email);
-    return this.authClient.send<any>(pattern, email);
+    this.logger.log('getUserByEmail --> ' + JSON.stringify(payload));
+    return this.authClient.send<any>(pattern, payload);
   }
 
   resetPassword(payload: any): Observable<any> {

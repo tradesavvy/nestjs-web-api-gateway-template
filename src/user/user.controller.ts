@@ -86,7 +86,9 @@ export class UserController {
   }
   @UseGuards(AuthGuard('jwt'))
   @Post('/userbroker')
-  createUserBroker(@Req() req: any, dto: CreateUserBrokerDto): any {
+  createUserBroker(@Req() req: any, @Body() dto: CreateUserBrokerDto): any {
+    this.logger.log('Received request for createUserBroker: ' + dto);
+    this.authorizationCheck(req, dto.userName);
     dto.userName = req.user.username;
     return this.userbrokersService.createUserBroker(dto);
   }
@@ -105,27 +107,29 @@ export class UserController {
     return this.userbrokersService.updateUserBroker(dto);
   }
   @UseGuards(AuthGuard('jwt'))
-  @Put('/userbroker/disconnect/:username')
+  @Put('/disconnect/:username')
   disconnectUserBroker(
     @Req() req: any,
     @Body() dto: UserBroker,
     @Param('username') username: string,
   ): any {
+    this.logger.log(
+      'Received request for disconnectUserBroker: ' + JSON.stringify(dto),
+    );
     this.authorizationCheck(req, username);
     dto.userName = username;
-    this.logger.log('Received request for userBrokersService: ' + dto);
     return this.userbrokersService.disconnectUserBroker(dto);
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Put('/userbroker/connect/:username')
+  @Put('/connect/:username')
   connectUserBroker(
     @Req() req: any,
     @Body() dto: ConnectUserBroker,
     @Param('username') username: string,
   ): any {
     this.logger.log('Received request for connectUserBroker: ' + dto);
-    this.authorizationCheck(req, dto.userName);
+    this.authorizationCheck(req, username);
     dto.userName = username;
     return this.userbrokersService.connectUserBroker(dto);
   }
@@ -171,7 +175,8 @@ export class UserController {
   private authorizationCheck(req: any, username: string) {
     this.logger.log('Authenticate User: ' + JSON.stringify(req.user));
     if (username !== req?.user?.username) {
-      this.logger.log('User Unauthorized:' + username);
+      this.logger.log('User in Req: ' + req?.user?.username);
+      this.logger.log('User in path: ' + username);
       throw new UnauthorizedException();
     }
   }
