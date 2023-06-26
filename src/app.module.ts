@@ -9,6 +9,7 @@ import { TickerModule } from './ticker/ticker.module';
 import { OmsModule } from './oms/oms.module';
 import { SocialModule } from './social/social.module';
 import { ReferralModule } from './referral/referral.module';
+import { ZerodhawebhookModule } from './zerodhawebhook/zerodhawebhook.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ReferralModule } from './referral/referral.module';
     TickerModule,
     OmsModule,
     ReferralModule,
+    ZerodhawebhookModule,
   ],
   controllers: [AppController],
   providers: [AppService],
