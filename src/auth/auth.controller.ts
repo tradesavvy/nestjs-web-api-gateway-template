@@ -162,7 +162,7 @@ export class AuthController {
           );
         }
       }
-      const userCreatedInAuth = await this.createUserInAuthModule(
+      const userCreatedInAuth =  await this.createUserInAuthModule(
         createUserDTO,
       );
       this.logger.log(
@@ -171,7 +171,7 @@ export class AuthController {
       );
       if (userCreatedInAuth.status === 'error') {
         throw new HttpException(
-          createUserDTO.email + ' already exists',
+          userCreatedInAuth.message,
           HttpStatus.BAD_REQUEST,
         );
       }
@@ -240,7 +240,7 @@ export class AuthController {
         );
       } else {
         throw new HttpException(
-          createUserDTO.email + ' already exists',
+          error.message,
           HttpStatus.CONFLICT,
         );
       }
@@ -300,22 +300,24 @@ export class AuthController {
     }
   }
 
-  @Post('/:username/verify-email')
+  @Post('/:username/mail/otp/verify')
   async verifyEmail(
     @Param('username') username: string,
-    @Body('token') token: string,
+    @Body('otp') otp: string,
+    @Res() res: Response
   ): Promise<any> {
-    this.logger.log('UserController send verify email ... ');
+    this.logger.log('UserController send verify email otp ... ');
     try {
-      const result = this.authService.verifyEmail({
+      const result$ = this.authService.verifyEmailOTP({
         username: username,
-        token: token,
+        otp: otp,
       });
-      const httpResponse = await lastValueFrom(result);
-      this.logger.log(`Emit user.verify`);
-      this.emitter.emit('user.verify', new UserVerifiedEvent(username));
-      this.logger.log('Response for verify email ... ' + httpResponse);
-      return httpResponse;
+      const result = await lastValueFrom(result$);
+      return res.status(result.statusCode || 400).json({
+        status: result.status,
+        data: result.data,
+        message: result.message,
+      });
     } catch (error) {
       this.logger.error(error);
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
