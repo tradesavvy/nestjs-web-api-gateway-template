@@ -300,17 +300,19 @@ export class AuthController {
     }
   }
 
-  @Post('/:username/mail/otp/verify')
-  async verifyEmail(
+  @Post('/:username/otp/verify')
+  async verifyOTP(
     @Param('username') username: string,
-    @Body('otp') otp: string,
+    @Body('mailOTP') mailOTP: string,
+    @Body('mobileOTP') mobileOTP: string,
     @Res() res: Response
   ): Promise<any> {
     this.logger.log('UserController send verify email otp ... ');
     try {
-      const result$ = this.authService.verifyEmailOTP({
+      const result$ = this.authService.verifyOTP({
         username: username,
-        otp: otp,
+        mailOTP: mailOTP,
+        mobileOTP: mobileOTP,
       });
       const result = await lastValueFrom(result$);
       return res.status(result.statusCode || 400).json({

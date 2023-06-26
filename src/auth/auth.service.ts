@@ -38,8 +38,8 @@ export class AuthService {
     return this.authClient.send<any>(pattern, payload);
   }
 
-  verifyEmailOTP(payload: any): Observable<any> {
-    const pattern = { cmd: 'verifyEmailOTP' };
+  verifyOTP(payload: any): Observable<any> {
+    const pattern = { cmd: 'verifyOTP' };
     this.logger.log(payload);
     return this.authClient.send<any>(pattern, payload);
   }
