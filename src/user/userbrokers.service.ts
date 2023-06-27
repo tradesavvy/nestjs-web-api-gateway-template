@@ -23,6 +23,11 @@ export class UserbrokersService {
     this.logger.log('getuserBrokers' + payload);
     return this.userClient.send<any>(pattern, payload);
   }
+  async assignPrimaryBroker(dto: any): Promise<any> {
+    this.logger.log('Received request for assignPrimaryBroker: ' + dto);
+    const pattern = { cmd: 'assignPrimaryBroker' };
+    return this.userClient.send<any>(pattern, dto);
+  }
   async updateUserBroker(dto: any): Promise<any> {
     this.logger.log('Received request for userBrokersService: ' + dto);
     const pattern = { cmd: 'updateUserBroker' };

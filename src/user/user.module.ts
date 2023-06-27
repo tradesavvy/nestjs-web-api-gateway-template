@@ -6,6 +6,8 @@ import { UserRiskProfileService } from './userriskprofile.service';
 import { UserbrokersService } from './userbrokers.service';
 import { UserBrokersController } from './userbroker.controller';
 import { UserRiskProfileController } from './userriskprofile.controller';
+import { UserWatchlistService } from './user-watchlist.service';
+import { UserWatchlistController } from './user-watchlist.controller';
 
 @Module({
   imports: [
@@ -38,7 +40,13 @@ import { UserRiskProfileController } from './userriskprofile.controller';
     UserController,
     UserBrokersController,
     UserRiskProfileController,
+    UserWatchlistController,
   ],
-  providers: [UserService, UserRiskProfileService, UserbrokersService],
+  providers: [
+    UserService,
+    UserRiskProfileService,
+    UserbrokersService,
+    UserWatchlistService,
+  ],
 })
 export class UserModule {}

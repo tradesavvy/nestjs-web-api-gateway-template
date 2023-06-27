@@ -65,6 +65,22 @@ export class UserBrokersController {
     return this.userbrokersService.updateUserBroker(dto);
   }
   @UseGuards(AuthGuard('jwt'))
+  @Put('assign/:username/:id')
+  assignPrimaryBroker(
+    @Req() req: any,
+    @Body() dto: any,
+    @Param('username') username: string,
+    @Param('id') id: string,
+  ): any {
+    this.authorizationCheck(req, username);
+
+    this.logger.log('Received request for assignPrimaryBroker: ' + dto);
+    return this.userbrokersService.assignPrimaryBroker({
+      userName: username,
+      userBrokerId: id,
+    });
+  }
+  @UseGuards(AuthGuard('jwt'))
   @Post('disconnect/:username')
   disconnectUserBroker(
     @Req() req: any,
