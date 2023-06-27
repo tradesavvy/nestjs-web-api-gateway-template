@@ -27,7 +27,7 @@ import { AuditModule } from './audit/audit.module';
     ReferralModule,
     ZerodhawebhookModule,
     ConfigurationModule,
-    AuditModule
+    AuditModule,
   ],
   controllers: [AppController],
   providers: [AppService],
