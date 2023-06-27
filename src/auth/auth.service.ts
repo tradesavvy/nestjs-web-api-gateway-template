@@ -44,6 +44,18 @@ export class AuthService {
     return this.authClient.send<any>(pattern, payload);
   }
 
+  resentMailOTP(payload: any): Observable<any> {
+    const pattern = { cmd: 'resentMailOTP' };
+    this.logger.log(payload);
+    return this.authClient.send<any>(pattern, payload);
+  }
+
+  resentMobileOTP(payload: any): Observable<any> {
+    const pattern = { cmd: 'resentMobileOTP' };
+    this.logger.log(payload);
+    return this.authClient.send<any>(pattern, payload);
+  }
+
   forgotPassword(payload: any): Observable<any> {
     const pattern = { cmd: 'forgotPassword' };
     this.logger.log(payload);

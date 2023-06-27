@@ -300,6 +300,52 @@ export class AuthController {
     }
   }
 
+  @Post('/:username/resent-mail-otp')
+  async resentMailOTP(
+    @Param('username') username: string,
+    @Res() res: Response
+  ): Promise<any> {
+    this.logger.log('UserController send mail otp ... ');
+    try {
+      const result$ = this.authService.resentMailOTP({
+        username: username,
+      });
+      const result = await lastValueFrom(result$);
+      return res.status(result.statusCode || 400).json({
+        status: result.status,
+        data: result.data,
+        message: result.message,
+      });
+    } catch (error) {
+      this.logger.error(error);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Post('/:username/resent-mobile-otp')
+  async resentMobileOTP(
+    @Param('username') username: string,
+    @Res() res: Response
+  ): Promise<any> {
+    this.logger.log('UserController send mobile otp ... ');
+    try {
+      const result$ = this.authService.resentMobileOTP({
+        username: username,
+      });
+      const result = await lastValueFrom(result$);
+      return res.status(result.statusCode || 400).json({
+        status: result.status,
+        data: result.data,
+        message: result.message,
+      });
+    } catch (error) {
+      this.logger.error(error);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+
+
   @Post('/:username/otp/verify')
   async verifyOTP(
     @Param('username') username: string,
