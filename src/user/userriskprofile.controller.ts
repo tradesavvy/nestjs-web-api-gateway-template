@@ -16,7 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { UserRiskProfileService } from './userriskprofile.service';
 
 @Controller('users/riskprofile')
-@ApiTags('Users')
+@ApiTags('User Risk Profiles')
 export class UserRiskProfileController {
   private readonly logger = new Logger(UserRiskProfileController.name);
 

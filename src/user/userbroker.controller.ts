@@ -25,7 +25,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users/userbroker')
-@ApiTags('Users')
+@ApiTags('User  Brokers')
 export class UserBrokersController {
   private readonly logger = new Logger(UserBrokersController.name);
 

@@ -4,7 +4,6 @@ import {
   Get,
   Logger,
   Post,
-  Put,
   Req,
   UnauthorizedException,
   UseGuards,
@@ -16,7 +15,7 @@ import { CreateWatchlistDto } from './user-watchlist.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('users/watchlist')
-@ApiTags('Users')
+@ApiTags('Users Watchlist')
 export class UserWatchlistController {
   private readonly logger = new Logger(UserWatchlistController.name);
 
