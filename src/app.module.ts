@@ -10,6 +10,8 @@ import { OmsModule } from './oms/oms.module';
 import { SocialModule } from './social/social.module';
 import { ReferralModule } from './referral/referral.module';
 import { ZerodhawebhookModule } from './zerodhawebhook/zerodhawebhook.module';
+import { ConfigurationModule } from './configuration/configuration.module';
+import { AuditModule } from './audit/audit.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { ZerodhawebhookModule } from './zerodhawebhook/zerodhawebhook.module';
     OmsModule,
     ReferralModule,
     ZerodhawebhookModule,
+    ConfigurationModule,
+    AuditModule
   ],
   controllers: [AppController],
   providers: [AppService],
