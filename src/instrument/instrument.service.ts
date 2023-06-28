@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
 export class InstruementService {
@@ -25,6 +26,7 @@ export class InstruementService {
     this.logger.log('GetInstruments');
     return this.instruementClient.send<any>(pattern, {});
   }
+
   getInstruments(payload: any): any {
     const pattern = { cmd: 'getInstruments' };
     this.logger.log('GetInstruments' + payload);

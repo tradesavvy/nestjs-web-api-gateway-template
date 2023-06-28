@@ -1,35 +1,40 @@
-import { Controller, Get, Logger, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Logger, Param } from '@nestjs/common';
 import { InstruementService } from './instrument.service';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { AbstractJwtController } from 'src/user/abstract.jwt.controller';
 
 @Controller('instrument')
 @ApiTags('Instrument')
-export class InstrumentController {
+export class InstrumentController extends AbstractJwtController {
+  getLogger(): Logger {
+    return this.logger;
+  }
   private readonly logger = new Logger(InstrumentController.name);
 
-  constructor(private readonly instrumentService: InstruementService) {}
+  constructor(private readonly instrumentService: InstruementService) {
+    super();
+  }
 
   @Get('ping')
   ping(): any {
     return this.instrumentService.ping();
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Get('generate-session/:token')
   generateSession(@Param('token') token: string): any {
     return this.instrumentService.generateSession(token);
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Get('load-instrument')
   loadInstrument(): any {
     return this.instrumentService.loadInstrument();
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Get(':exchange')
   getInstrumentByExchange(@Param('exchange') exchange: string): any {
     return this.instrumentService.getInstrumentByExchange(exchange);
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Get(':instrumentName/:type/:expiryCycle')
   getInstrument(
     @Param('instrumentName') instrumentName: string,

@@ -1,25 +1,19 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Logger,
-  Post,
-  Req,
-  UnauthorizedException,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post, Req } from '@nestjs/common';
 import { UserWatchlistService } from './user-watchlist.service';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 import { CreateWatchlistDto } from './user-watchlist.dto';
+import { AbstractJwtController } from './abstract.jwt.controller';
 
-@UseGuards(AuthGuard('jwt'))
 @Controller('users/watchlist')
 @ApiTags('Users Watchlist')
-export class UserWatchlistController {
-  private readonly logger = new Logger(UserWatchlistController.name);
-
-  constructor(private readonly userWatchlistService: UserWatchlistService) {}
+export class UserWatchlistController extends AbstractJwtController {
+  getLogger(): Logger {
+    return this.logger;
+  }
+  protected readonly logger = new Logger(UserWatchlistController.name);
+  constructor(private readonly userWatchlistService: UserWatchlistService) {
+    super();
+  }
 
   @Get()
   getUserWatchlist(@Req() req: any): any {
@@ -49,13 +43,5 @@ export class UserWatchlistController {
     this.authorizationCheck(req, dto.userName);
     dto.userName = req.user.username;
     return this.userWatchlistService.updateWatchlistSettings(dto);
-  }
-  private authorizationCheck(req: any, username: string) {
-    this.logger.log('Authenticate User: ' + JSON.stringify(req.user));
-    if (username !== req?.user?.username) {
-      this.logger.log('User in Req: ' + req?.user?.username);
-      this.logger.log('User in path: ' + username);
-      throw new UnauthorizedException();
-    }
   }
 }

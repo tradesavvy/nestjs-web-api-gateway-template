@@ -8,8 +8,6 @@ import {
   Post,
   Put,
   Req,
-  UnauthorizedException,
-  UseGuards,
 } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
@@ -22,19 +20,23 @@ import {
   UpdateUserBrokerDto,
   UserBroker,
 } from 'src/common/dtos/userbrokers.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { AbstractJwtController } from './abstract.jwt.controller';
 
 @Controller('users/userbroker')
 @ApiTags('User  Brokers')
-export class UserBrokersController {
+export class UserBrokersController extends AbstractJwtController {
+  getLogger(): Logger {
+    return this.logger;
+  }
   private readonly logger = new Logger(UserBrokersController.name);
 
   constructor(
     private readonly userbrokersService: UserbrokersService,
     private readonly emitter: EventEmitter2,
-  ) {}
+  ) {
+    super();
+  }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get()
   getuserBrokers(@Req() req: any): any {
     return this.userbrokersService.getuserBrokers({
@@ -42,7 +44,6 @@ export class UserBrokersController {
     });
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Post()
   createUserBroker(@Req() req: any, @Body() dto: CreateUserBrokerDto): any {
     this.logger.log('Received request for createUserBroker: ' + dto);
@@ -50,7 +51,7 @@ export class UserBrokersController {
     dto.userName = req.user.username;
     return this.userbrokersService.createUserBroker(dto);
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Put(':username/:id')
   updateUserBroker(
     @Req() req: any,
@@ -64,7 +65,7 @@ export class UserBrokersController {
     this.logger.log('Received request for userBrokersService: ' + dto);
     return this.userbrokersService.updateUserBroker(dto);
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Put('assign/:username/:id')
   assignPrimaryBroker(
     @Req() req: any,
@@ -80,7 +81,7 @@ export class UserBrokersController {
       userBrokerId: id,
     });
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Post('disconnect/:username')
   disconnectUserBroker(
     @Req() req: any,
@@ -95,7 +96,6 @@ export class UserBrokersController {
     return this.userbrokersService.disconnectUserBroker(dto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Post('connect/:username')
   connectUserBroker(
     @Req() req: any,
@@ -107,7 +107,7 @@ export class UserBrokersController {
     dto.userName = username;
     return this.userbrokersService.connectUserBroker(dto);
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Post('activate/:username')
   enableTrade(
     @Req() req: any,
@@ -119,7 +119,7 @@ export class UserBrokersController {
     this.logger.log('Received request for enableTrade: ' + dto);
     return this.userbrokersService.enableTrade(dto);
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Post('sort/:username')
   updateSortOrder(
     @Req() req: any,
@@ -131,7 +131,7 @@ export class UserBrokersController {
     this.logger.log('Received request for updateSortOrder: ' + dto);
     return this.userbrokersService.updateSortOrder(dto);
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Delete(':username/:id')
   deleteUserBroker(
     @Req() req: any,
@@ -145,13 +145,5 @@ export class UserBrokersController {
     };
     this.logger.log('Received request for deleteUserBroker: ' + dto);
     return this.userbrokersService.deleteUserBroker(dto);
-  }
-  private authorizationCheck(req: any, username: string) {
-    this.logger.log('Authenticate User: ' + JSON.stringify(req.user));
-    if (username !== req?.user?.username) {
-      this.logger.log('User in Req: ' + req?.user?.username);
-      this.logger.log('User in path: ' + username);
-      throw new UnauthorizedException();
-    }
   }
 }
