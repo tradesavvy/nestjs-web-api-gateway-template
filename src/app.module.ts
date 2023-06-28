@@ -12,6 +12,7 @@ import { ReferralModule } from './referral/referral.module';
 import { ZerodhawebhookModule } from './zerodhawebhook/zerodhawebhook.module';
 import { ConfigurationModule } from './configuration/configuration.module';
 import { AuditModule } from './audit/audit.module';
+import { VirtualTradeModule } from './virtual-trade/virtual-trade.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AuditModule } from './audit/audit.module';
     ZerodhawebhookModule,
     ConfigurationModule,
     AuditModule,
+    VirtualTradeModule
   ],
   controllers: [AppController],
   providers: [AppService],
