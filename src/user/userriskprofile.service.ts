@@ -29,6 +29,13 @@ export class UserRiskProfileService {
     const pattern = { cmd: 'updateRiskProfile' };
     return this.userClient.send<any>(pattern, updateRiskProfileDto);
   }
+  assignPrimaryRiskProfile(dto: any): any {
+    this.logger.log(
+      'sending assignPrimaryRiskProfile... ' + JSON.stringify(dto),
+    );
+    const pattern = { cmd: 'assignPrimaryRiskProfile' };
+    return this.userClient.send<any>(pattern, dto);
+  }
   getRiskProfilesByUsername(payload: string): any {
     const pattern = { cmd: 'getRiskProfilesByUsername' };
     this.logger.log('getRiskProfilesByUsername' + payload);

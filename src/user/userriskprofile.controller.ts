@@ -45,6 +45,19 @@ export class UserRiskProfileController {
     return this.userRiskProfileService.updateRiskProfile(dto);
   }
   @UseGuards(AuthGuard('jwt'))
+  @Post('assign/:userName/:id')
+  assignPrimaryRiskProfile(
+    @Req() req: any,
+    @Body() dto: any,
+    @Param('userName') userName: string,
+    @Param('id') id: string,
+  ): any {
+    this.authorizationCheck(req, userName);
+    dto.userName = userName;
+    dto.riskProfileId = id;
+    return this.userRiskProfileService.assignPrimaryRiskProfile(dto);
+  }
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   getUserRiskProfiles(@Req() req: any): any {
     return this.userRiskProfileService.getRiskProfilesByUsername(
