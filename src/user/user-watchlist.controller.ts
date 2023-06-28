@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Logger, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Post,
+  Put,
+  Req,
+} from '@nestjs/common';
 import { UserWatchlistService } from './user-watchlist.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateWatchlistDto } from './user-watchlist.dto';
@@ -22,10 +31,14 @@ export class UserWatchlistController extends AbstractJwtController {
     });
   }
 
-  @Post()
-  updateUserWatchlist(@Req() req: any, @Body() dto: CreateWatchlistDto): any {
+  @Put(':username')
+  updateUserWatchlist(
+    @Req() req: any,
+    @Body() dto: CreateWatchlistDto,
+    @Param('username') username: string,
+  ): any {
     this.logger.log('Received request for updateWatchlist: ' + dto);
-    this.authorizationCheck(req, dto.userName);
+    this.authorizationCheck(req, username);
     dto.userName = req.user.username;
     return this.userWatchlistService.updateUserWatchlist(dto);
   }
@@ -37,10 +50,14 @@ export class UserWatchlistController extends AbstractJwtController {
     });
   }
 
-  @Post('settings')
-  updateWatchlistSettings(@Req() req: any, @Body() dto: any): any {
+  @Put('settings/:username')
+  updateWatchlistSettings(
+    @Req() req: any,
+    @Body() dto: any,
+    @Param('username') username: string,
+  ): any {
     this.logger.log('Received request for updateWatchlistSettings: ' + dto);
-    this.authorizationCheck(req, dto.userName);
+    this.authorizationCheck(req, username);
     dto.userName = req.user.username;
     return this.userWatchlistService.updateWatchlistSettings(dto);
   }
