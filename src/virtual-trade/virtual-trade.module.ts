@@ -11,7 +11,9 @@ import { VirtualTradeController } from './virtual-trade.controller';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_VIRTUAL_TRADE_QUEUE_NAME || 'laabam_virtual_trade_queue',
+          queue:
+            process.env.RMQ_VIRTUAL_TRADE_QUEUE_NAME ||
+            'laabam_virtual_trade_queue',
           queueOptions: {
             durable: false,
           },
