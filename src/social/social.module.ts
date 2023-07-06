@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { SocialController } from './social.controller';
 import { SocialService } from './social.service';
-import { SteamStrategy } from './steam.strategy';
 import { TwitterStrategy } from './twitter.strategy';
 
 @Module({
