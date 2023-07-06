@@ -71,45 +71,6 @@ export class SocialController {
     });
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Get('/:username/steam/:socialId/disconnect')
-  async getSocialDisconnectForSteam(
-    @Param('username') username: string,
-    @Param('socialId') socialId: string,
-    @Req() req: any,
-    @Res() res: Response,
-  ) {
-    try {
-      const socialname = 'steam';
-      this.logger.log(
-        'social Disconnect..user: ' + username + ' socialname: ' + socialname,
-      );
-      this.logger.log('Sending request to update Quest for disconnect..');
-      this.logger.log('Authenticate User: ' + JSON.stringify(req.user));
-      if (username !== req?.user?.username) {
-        this.logger.log('User Unauthorized:' + username);
-        throw new UnauthorizedException();
-      }
-      const result$ = await this.socialService.getSocialDisconnect({
-        username: username,
-        socialname: socialname,
-      });
-      const result = await lastValueFrom(result$);
-      return res.status(result.statusCode || 400).json({
-        status: result.status,
-        data: result.data,
-        message: result.message,
-      });
-    } catch (error) {
-      this.logger.error(error);
-      return res.status(400).json({
-        status: 'error',
-        message: error.message,
-      });
-    }
-  }
-
-
   @Get('/users/:username/friend')
   async getFriends(
     @Param('username') username: string,

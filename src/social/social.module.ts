@@ -20,7 +20,7 @@ import { TwitterStrategy } from './twitter.strategy';
       },
     ]),
   ],
-  providers: [SocialService, TwitterStrategy, SteamStrategy],
+  providers: [SocialService, TwitterStrategy],
   controllers: [SocialController],
 })
 export class SocialModule {}
