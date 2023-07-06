@@ -6,7 +6,7 @@ import { ZerodhahookService } from 'src/zerodhawebhook/zerodhahook.service';
 export class ZerodhawebhookController {
   constructor(private readonly zerodhahookService: ZerodhahookService) {}
   @Post('order')
-  createRiskProfile(@Req() req: any, @Body() payload: any): any {
+  processZerodhOrderUpdate(@Req() req: any, @Body() payload: any): any {
     this.zerodhahookService.processZerodhOrderUpdate(
       Order.fromRawBody(payload),
     );
