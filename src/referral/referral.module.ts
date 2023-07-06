@@ -15,7 +15,7 @@ import { ReferralService } from './referral.service';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_REFERRAL_QUEUE_NAME || 'laabam_referral_queue',
+          queue: process.env.RMQ_REFERRAL_QUEUE_NAME || 'laabhum_referral_queue',
           queueOptions: {
             durable: false,
           },

@@ -13,7 +13,7 @@ import { TwitterStrategy } from './twitter.strategy';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_SOCIAL_QUEUE_NAME || 'laabam_social_queue',
+          queue: process.env.RMQ_SOCIAL_QUEUE_NAME || 'laabhum_social_queue',
           queueOptions: {
             durable: false,
           },

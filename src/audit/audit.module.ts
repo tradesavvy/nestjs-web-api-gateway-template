@@ -11,7 +11,7 @@ import { AuditService } from './audit.service';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_AUDIT_QUEUE_NAME || 'laabam_audit_queue',
+          queue: process.env.RMQ_AUDIT_QUEUE_NAME || 'laabhum_audit_queue',
           queueOptions: {
             durable: false,
           },

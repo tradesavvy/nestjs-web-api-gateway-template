@@ -25,10 +25,10 @@ async function bootstrap() {
     app.use(passport.initialize());
     app.use(passport.session());
     const config = new DocumentBuilder()
-      .setTitle('Laabam Web API')
-      .setDescription('Laabam API for Browser')
+      .setTitle('Laabhum Web API')
+      .setDescription('Laabhum API for Browser')
       .setVersion('1.0')
-      .addTag('Laabam Web API')
+      .addTag('Laabhum Web API')
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, document);
