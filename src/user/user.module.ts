@@ -17,7 +17,7 @@ import { UserWatchlistController } from './user-watchlist.controller';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_AUTH_QUEUE_NAME || 'auth_queue',
+          queue: process.env.RMQ_AUTH_QUEUE_NAME || 'laabhum_auth_queue',
           queueOptions: {
             durable: false,
           },
@@ -28,7 +28,7 @@ import { UserWatchlistController } from './user-watchlist.controller';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_USER_QUEUE_NAME || 'user_queue',
+          queue: process.env.RMQ_USER_QUEUE_NAME || 'laabhum_user_queue',
           queueOptions: {
             durable: false,
           },

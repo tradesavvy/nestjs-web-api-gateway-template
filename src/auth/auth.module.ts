@@ -46,7 +46,8 @@ import { ReferralService } from 'src/referral/referral.service';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_REFERRAL_QUEUE_NAME || 'laabhum_referral_queue',
+          queue:
+            process.env.RMQ_REFERRAL_QUEUE_NAME || 'laabhum_referral_queue',
           queueOptions: {
             durable: false,
           },
@@ -55,7 +56,7 @@ import { ReferralService } from 'src/referral/referral.service';
     ]),
     PassportModule,
     UserModule,
-    JwtAuthModule
+    JwtAuthModule,
   ],
   providers: [AuthService, UserService, ReferralService, LocalStrategy],
   controllers: [AuthController],

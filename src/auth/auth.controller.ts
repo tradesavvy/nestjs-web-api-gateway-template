@@ -23,7 +23,6 @@ import { UserResponseDto } from 'src/common/dtos/user.response.dto';
 import { UserDeletedEvent } from 'src/common/event/user.deleted.event';
 import { UserLoginEvent } from 'src/common/event/user.login.event';
 import { UserRegisterEvent } from 'src/common/event/user.register.event';
-import { UserVerifiedEvent } from 'src/common/event/user.verify.event';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -162,7 +161,7 @@ export class AuthController {
           );
         }
       }
-      const userCreatedInAuth =  await this.createUserInAuthModule(
+      const userCreatedInAuth = await this.createUserInAuthModule(
         createUserDTO,
       );
       this.logger.log(
@@ -239,10 +238,7 @@ export class AuthController {
           HttpStatus.CONFLICT,
         );
       } else {
-        throw new HttpException(
-          error.message,
-          HttpStatus.CONFLICT,
-        );
+        throw new HttpException(error.message, HttpStatus.CONFLICT);
       }
     }
   }
@@ -303,7 +299,7 @@ export class AuthController {
   @Post('/:username/resent-mail-otp')
   async resentMailOTP(
     @Param('username') username: string,
-    @Res() res: Response
+    @Res() res: Response,
   ): Promise<any> {
     this.logger.log('UserController send mail otp ... ');
     try {
@@ -325,7 +321,7 @@ export class AuthController {
   @Post('/:username/resent-mobile-otp')
   async resentMobileOTP(
     @Param('username') username: string,
-    @Res() res: Response
+    @Res() res: Response,
   ): Promise<any> {
     this.logger.log('UserController send mobile otp ... ');
     try {
@@ -344,14 +340,12 @@ export class AuthController {
     }
   }
 
-
-
   @Post('/:username/otp/verify')
   async verifyOTP(
     @Param('username') username: string,
     @Body('mailOTP') mailOTP: string,
     @Body('mobileOTP') mobileOTP: string,
-    @Res() res: Response
+    @Res() res: Response,
   ): Promise<any> {
     this.logger.log('UserController send verify email otp ... ');
     try {
