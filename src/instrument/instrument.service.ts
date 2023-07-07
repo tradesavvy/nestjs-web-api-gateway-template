@@ -4,8 +4,8 @@ import { ClientProxy } from '@nestjs/microservices';
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class InstruementService {
-  private readonly logger = new Logger(InstruementService.name);
+export class InstrumentService {
+  private readonly logger = new Logger(InstrumentService.name);
 
   constructor(
     @Inject('INSTRUEMENT') private readonly instruementClient: ClientProxy,

@@ -29,7 +29,7 @@ import { VirtualTradeModule } from './virtual-trade/virtual-trade.module';
     ZerodhawebhookModule,
     ConfigurationModule,
     AuditModule,
-    VirtualTradeModule
+    VirtualTradeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

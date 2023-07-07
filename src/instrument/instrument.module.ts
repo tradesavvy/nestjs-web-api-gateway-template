@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { InstrumentController } from './instrument.controller';
-import { InstruementService } from './instrument.service';
+import { InstrumentService } from './instrument.service';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -15,7 +15,8 @@ import { ConfigModule } from '@nestjs/config';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_INSTRUMENT_QUEUE_NAME || 'laabhum_instrument_queue',
+          queue:
+            process.env.RMQ_INSTRUMENT_QUEUE_NAME || 'laabhum_instrument_queue',
           queueOptions: {
             durable: false,
           },
@@ -23,7 +24,7 @@ import { ConfigModule } from '@nestjs/config';
       },
     ]),
   ],
-  providers: [InstruementService],
+  providers: [InstrumentService],
   controllers: [InstrumentController],
 })
 export class InstrumentModule {}

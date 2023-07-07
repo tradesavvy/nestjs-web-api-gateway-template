@@ -1,5 +1,5 @@
 import { Controller, Get, Logger, Param } from '@nestjs/common';
-import { InstruementService } from './instrument.service';
+import { InstrumentService } from './instrument.service';
 import { ApiTags } from '@nestjs/swagger';
 import { AbstractJwtController } from 'src/user/abstract.jwt.controller';
 
@@ -11,7 +11,7 @@ export class InstrumentController extends AbstractJwtController {
   }
   private readonly logger = new Logger(InstrumentController.name);
 
-  constructor(private readonly instrumentService: InstruementService) {
+  constructor(private readonly instrumentService: InstrumentService) {
     super();
   }
 
