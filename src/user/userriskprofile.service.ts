@@ -3,6 +3,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
   CreateRiskProfileDto,
+  DeleteUserRiskProfileDto,
   UpdateRiskProfileDto,
 } from 'src/common/dtos/riskprofile.dto';
 
@@ -46,5 +47,10 @@ export class UserRiskProfileService {
     const pattern = { cmd: 'getActiveRiskProfileByUsername' };
     this.logger.log('getActiveRiskProfileByUsername' + payload);
     return this.userClient.send<any>(pattern, payload);
+  }
+  async deleteUserRiskProfile(dto: any): Promise<any> {
+    this.logger.log('Received request for deleteUserRiskProfile: ' + dto);
+    const pattern = { cmd: 'deleteRiskProfile' };
+    return this.userClient.send<any>(pattern, dto);
   }
 }

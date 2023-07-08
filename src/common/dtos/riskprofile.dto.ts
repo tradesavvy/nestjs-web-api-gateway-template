@@ -32,3 +32,7 @@ export class UpdateRiskProfileDto {
   targetPercentage: number;
   slPercentage: number;
 }
+export class DeleteUserRiskProfileDto {
+  userName: string;
+  riskProfileId: string;
+}

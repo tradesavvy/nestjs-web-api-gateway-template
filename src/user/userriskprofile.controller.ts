@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Logger,
   Param,
@@ -12,7 +13,11 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { UserRiskProfileService } from './userriskprofile.service';
 import { AbstractJwtController } from './abstract.jwt.controller';
-import { UpdateRiskProfileDto } from 'src/common/dtos/riskprofile.dto';
+import {
+  DeleteUserRiskProfileDto,
+  UpdateRiskProfileDto,
+} from 'src/common/dtos/riskprofile.dto';
+import { DeleteUserBrokerDto } from 'src/common/dtos/userbrokers.dto';
 
 @Controller('users/riskprofile')
 @ApiTags('User Risk Profiles')
@@ -70,5 +75,14 @@ export class UserRiskProfileController extends AbstractJwtController {
     return this.userRiskProfileService.getActiveRiskProfileByUsername(
       req.user.username,
     );
+  }
+  @Delete(' :id')
+  deleteUserRiskProfile(@Req() req: any, @Param('id') id: string): any {
+    const dto: DeleteUserRiskProfileDto = {
+      userName: req.user.username,
+      riskProfileId: id,
+    };
+    this.logger.log('Received request for deleteUserBroker: ' + dto);
+    return this.userRiskProfileService.deleteUserRiskProfile(dto);
   }
 }
