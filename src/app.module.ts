@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -13,7 +13,7 @@ import { ZerodhawebhookModule } from './zerodhawebhook/zerodhawebhook.module';
 import { ConfigurationModule } from './configuration/configuration.module';
 import { AuditModule } from './audit/audit.module';
 import { VirtualTradeModule } from './virtual-trade/virtual-trade.module';
-
+import * as cookieParser from 'cookie-parser';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -34,4 +34,8 @@ import { VirtualTradeModule } from './virtual-trade/virtual-trade.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(cookieParser()).forRoutes('*');
+  }
+}

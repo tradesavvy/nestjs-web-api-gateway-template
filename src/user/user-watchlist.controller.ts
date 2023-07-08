@@ -23,7 +23,6 @@ export class UserWatchlistController extends AbstractJwtController {
   constructor(private readonly userWatchlistService: UserWatchlistService) {
     super();
   }
-
   @Get()
   getUserWatchlist(@Req() req: any): any {
     return this.userWatchlistService.getUserWatchlist({
