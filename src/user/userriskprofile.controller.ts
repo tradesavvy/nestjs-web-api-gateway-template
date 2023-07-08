@@ -12,6 +12,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 import { UserRiskProfileService } from './userriskprofile.service';
 import { AbstractJwtController } from './abstract.jwt.controller';
+import { UpdateRiskProfileDto } from 'src/common/dtos/riskprofile.dto';
 
 @Controller('users/riskprofile')
 @ApiTags('User Risk Profiles')
@@ -35,28 +36,24 @@ export class UserRiskProfileController extends AbstractJwtController {
     return this.userRiskProfileService.createRiskProfile(payload);
   }
 
-  @Post(':userName/:id')
+  @Post(':id')
   updateRiskProfile(
     @Req() req: any,
-    @Body() dto: any,
-    @Param('userName') userName: string,
+    @Body() dto: UpdateRiskProfileDto,
     @Param('id') id: string,
   ): any {
-    this.authorizationCheck(req, userName);
-    dto.userName = userName;
+    dto.userName = req.user.username;
     dto.riskProfileId = id;
     return this.userRiskProfileService.updateRiskProfile(dto);
   }
 
-  @Post('assign/:userName/:id')
+  @Post('assign/:id')
   assignPrimaryRiskProfile(
     @Req() req: any,
     @Body() dto: any,
-    @Param('userName') userName: string,
     @Param('id') id: string,
   ): any {
-    this.authorizationCheck(req, userName);
-    dto.userName = userName;
+    dto.userName = req.user.username;
     dto.riskProfileId = id;
     return this.userRiskProfileService.assignPrimaryRiskProfile(dto);
   }
@@ -68,12 +65,10 @@ export class UserRiskProfileController extends AbstractJwtController {
     );
   }
 
-  @Get(':username/active')
-  getActiveRiskProfileByUsername(
-    @Req() req: any,
-    @Param('username') username: string,
-  ): any {
-    this.authorizationCheck(req, username);
-    return this.userRiskProfileService.getActiveRiskProfileByUsername(username);
+  @Get('active')
+  getActiveRiskProfileByUsername(@Req() req: any): any {
+    return this.userRiskProfileService.getActiveRiskProfileByUsername(
+      req.user.username,
+    );
   }
 }

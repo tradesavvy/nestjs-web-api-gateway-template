@@ -9,8 +9,6 @@ export class CreateRiskProfileDto {
   tolerance: number;
   scalpProfit: number;
   maxLossPerTrade: number;
-  maxLossPerDay: number;
-  dayGoal: number;
   lots: number;
   quantityFactor: number;
   fixedQuantiy: boolean;
@@ -22,11 +20,9 @@ export class CreateRiskProfileDto {
 export class UpdateRiskProfileDto {
   riskProfileId?: string;
   profileName: string;
-  userName: string;
+  userName?: string;
   tolerance: number;
   scalpProfit: number;
-  maxLossPerTrade: number;
-  maxLossPerDay: number;
   dayGoal: number;
   lots: number;
   quantityFactor: number;
