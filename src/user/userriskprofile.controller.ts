@@ -76,7 +76,7 @@ export class UserRiskProfileController extends AbstractJwtController {
       req.user.username,
     );
   }
-  @Delete(' :id')
+  @Delete(':id')
   deleteUserRiskProfile(@Req() req: any, @Param('id') id: string): any {
     const dto: DeleteUserRiskProfileDto = {
       userName: req.user.username,
