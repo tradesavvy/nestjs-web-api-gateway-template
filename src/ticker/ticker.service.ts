@@ -14,4 +14,12 @@ export class TickerService {
     const pattern = { cmd: 'generateTicker' };
     return this.tickerClient.send<any>(pattern, {});
   }
+  startSimulator(): any {
+    const pattern = { cmd: 'startSimulator' };
+    return this.tickerClient.send<any>(pattern, {});
+  }
+  stopSimulator(): any {
+    const pattern = { cmd: 'stopSimulator' };
+    return this.tickerClient.send<any>(pattern, {});
+  }
 }
