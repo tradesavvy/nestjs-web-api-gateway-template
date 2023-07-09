@@ -11,7 +11,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_TICKER_QUEUE_NAME || 'ticker_queue',
+          queue: process.env.RMQ_TICKER_QUEUE_NAME || 'laabhum_ticker_queue',
           queueOptions: {
             durable: false,
           },
