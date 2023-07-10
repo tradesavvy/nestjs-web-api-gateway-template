@@ -17,7 +17,6 @@ import {
   DeleteUserRiskProfileDto,
   UpdateRiskProfileDto,
 } from 'src/common/dtos/riskprofile.dto';
-import { DeleteUserBrokerDto } from 'src/common/dtos/userbrokers.dto';
 
 @Controller('users/riskprofile')
 @ApiTags('User Risk Profiles')
