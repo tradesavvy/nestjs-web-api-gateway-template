@@ -39,6 +39,11 @@ export class UserController {
     return this.userService.getUserByMobileNumber(phoneNumber);
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get(':username')
+  getUserByUsername(@Param('username') username: string): any {
+    return this.userService.getUserByUsername(username);
+  }
   @Get('email/:email')
   getUserByEmail(@Param('email') email: string): any {
     return this.userService.getUserByEmail(email);
