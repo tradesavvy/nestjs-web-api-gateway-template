@@ -39,6 +39,11 @@ export class UserController {
     return this.userService.getUserByMobileNumber(phoneNumber);
   }
 
+  @Get('email/:email')
+  getUserByEmail(@Param('email') email: string): any {
+    return this.userService.getUserByEmail(email);
+  }
+
   private authorizationCheck(req: any, username: string) {
     this.logger.log('Authenticate User: ' + JSON.stringify(req.user));
     if (username !== req?.user?.username) {
