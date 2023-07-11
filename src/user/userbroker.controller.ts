@@ -66,18 +66,15 @@ export class UserBrokersController extends AbstractJwtController {
     return this.userbrokersService.updateUserBroker(dto);
   }
 
-  @Put('assign/:username/:id')
+  @Put('assign/:id')
   assignPrimaryBroker(
     @Req() req: any,
     @Body() dto: any,
-    @Param('username') username: string,
     @Param('id') id: string,
   ): any {
-    this.authorizationCheck(req, username);
-
     this.logger.log('Received request for assignPrimaryBroker: ' + dto);
     return this.userbrokersService.assignPrimaryBroker({
-      userName: username,
+      userName: req.user.username,
       userBrokerId: id,
     });
   }

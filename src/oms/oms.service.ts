@@ -17,4 +17,9 @@ export class OmsService {
     const pattern = { cmd: 'convertUserMessageToOrder' };
     return this.omsClient.send<any>(pattern, payload);
   }
+  getTrades(userName: any): any {
+    this.logger.log('getTrades ' + userName);
+    const pattern = { cmd: 'getTrades' };
+    return this.omsClient.send<any>(pattern, { userName: userName });
+  }
 }
