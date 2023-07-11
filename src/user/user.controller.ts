@@ -1,8 +1,10 @@
 import {
+  Body,
   Controller,
   Get,
   Logger,
   Param,
+  Patch,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -44,6 +46,17 @@ export class UserController {
   getUserByUsername(@Param('username') username: string): any {
     return this.userService.getUserByUsername(username);
   }
+
+  // @UseGuards(AuthGuard('jwt'))
+  @Patch(':username')
+  updateUser(
+    @Param('username') username: string,
+    @Body() updateUser: any,
+  ): any {
+    updateUser.userName = username;
+    return this.userService.updateUser(updateUser);
+  }
+
   @Get('email/:email')
   getUserByEmail(@Param('email') email: string): any {
     return this.userService.getUserByEmail(email);
