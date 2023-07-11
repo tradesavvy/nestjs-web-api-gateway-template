@@ -18,7 +18,7 @@ import {
   UpdateRiskProfileDto,
 } from 'src/common/dtos/riskprofile.dto';
 
-@Controller('users/riskprofile')
+@Controller('riskprofile')
 @ApiTags('User Risk Profiles')
 export class UserRiskProfileController extends AbstractJwtController {
   getLogger(): Logger {
@@ -62,7 +62,7 @@ export class UserRiskProfileController extends AbstractJwtController {
     return this.userRiskProfileService.assignPrimaryRiskProfile(dto);
   }
 
-  @Get()
+  @Get('')
   getUserRiskProfiles(@Req() req: any): any {
     return this.userRiskProfileService.getRiskProfilesByUsername(
       req.user.username,

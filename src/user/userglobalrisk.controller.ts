@@ -3,7 +3,7 @@ import { UserglobalriskService as UserGlobalriskService } from './userglobalrisk
 import { ApiTags } from '@nestjs/swagger';
 import { AbstractJwtController } from './abstract.jwt.controller';
 
-@Controller('users/globalrisk')
+@Controller('globalrisk')
 @ApiTags('User Global Risk')
 export class UserGlobalriskController extends AbstractJwtController {
   constructor(private readonly userGlobalriskService: UserGlobalriskService) {
