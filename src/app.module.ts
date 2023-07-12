@@ -13,6 +13,9 @@ import { ZerodhawebhookModule } from './zerodhawebhook/zerodhawebhook.module';
 import { ConfigurationModule } from './configuration/configuration.module';
 import { AuditModule } from './audit/audit.module';
 import { VirtualTradeModule } from './virtual-trade/virtual-trade.module';
+import { UserGlobalriskController } from './user/userglobalrisk.controller';
+import { TimeModule } from './time/time.module';
+
 import * as cookieParser from 'cookie-parser';
 @Module({
   imports: [
@@ -30,6 +33,7 @@ import * as cookieParser from 'cookie-parser';
     ConfigurationModule,
     AuditModule,
     VirtualTradeModule,
+    TimeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

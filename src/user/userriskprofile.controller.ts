@@ -17,9 +17,8 @@ import {
   DeleteUserRiskProfileDto,
   UpdateRiskProfileDto,
 } from 'src/common/dtos/riskprofile.dto';
-import { DeleteUserBrokerDto } from 'src/common/dtos/userbrokers.dto';
 
-@Controller('users/riskprofile')
+@Controller('riskprofile')
 @ApiTags('User Risk Profiles')
 export class UserRiskProfileController extends AbstractJwtController {
   getLogger(): Logger {
@@ -63,7 +62,7 @@ export class UserRiskProfileController extends AbstractJwtController {
     return this.userRiskProfileService.assignPrimaryRiskProfile(dto);
   }
 
-  @Get()
+  @Get('')
   getUserRiskProfiles(@Req() req: any): any {
     return this.userRiskProfileService.getRiskProfilesByUsername(
       req.user.username,
@@ -76,7 +75,7 @@ export class UserRiskProfileController extends AbstractJwtController {
       req.user.username,
     );
   }
-  @Delete(' :id')
+  @Delete(':id')
   deleteUserRiskProfile(@Req() req: any, @Param('id') id: string): any {
     const dto: DeleteUserRiskProfileDto = {
       userName: req.user.username,

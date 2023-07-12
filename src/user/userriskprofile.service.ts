@@ -3,7 +3,6 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
   CreateRiskProfileDto,
-  DeleteUserRiskProfileDto,
   UpdateRiskProfileDto,
 } from 'src/common/dtos/riskprofile.dto';
 

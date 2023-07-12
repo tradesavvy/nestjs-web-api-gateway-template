@@ -8,6 +8,8 @@ import { UserBrokersController } from './userbroker.controller';
 import { UserRiskProfileController } from './userriskprofile.controller';
 import { UserWatchlistService } from './user-watchlist.service';
 import { UserWatchlistController } from './user-watchlist.controller';
+import { UserGlobalriskController } from './userglobalrisk.controller';
+import { UserglobalriskService } from './userglobalrisk.service';
 
 @Module({
   imports: [
@@ -41,12 +43,14 @@ import { UserWatchlistController } from './user-watchlist.controller';
     UserBrokersController,
     UserRiskProfileController,
     UserWatchlistController,
+    UserGlobalriskController,
   ],
   providers: [
     UserService,
     UserRiskProfileService,
     UserbrokersService,
     UserWatchlistService,
+    UserglobalriskService,
   ],
 })
 export class UserModule {}

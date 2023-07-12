@@ -16,5 +16,11 @@ export class CreateOrUpdateReferralDto {
   referralCode: string;
 
   @IsString()
+  notes: string;
+
+  @IsBoolean()
+  isDefault: boolean;
+
+  @IsString()
   status: string;
 }

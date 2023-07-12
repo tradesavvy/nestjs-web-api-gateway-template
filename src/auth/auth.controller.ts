@@ -65,7 +65,10 @@ export class AuthController {
     );
 
     if (enrichedUser.status === 'error') {
-      throw new UnauthorizedException(enrichedUser.message);
+      return res.status(enrichedUser.statusCode).json({
+        status: enrichedUser.status,
+        message: enrichedUser.message,
+      });
     }
 
     const user = enrichedUser.data;
