@@ -16,5 +16,8 @@ export class CreateOrUpdateReferralDto {
   referralCode: string;
 
   @IsString()
+  notes: string;
+
+  @IsString()
   status: string;
 }
