@@ -1,4 +1,4 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuditService } from './audit.service';
 
@@ -15,4 +15,8 @@ export class AuditController {
     return this.auditService.ping();
   }
 
+  @Post('search')
+  async search(@Body() query: any) {
+    return await this.auditService.search(query);
+  }
 }

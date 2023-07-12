@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Logger,
+  Param,
+  Patch,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { ReferralService } from './referral.service';
 import { lastValueFrom } from 'rxjs';
 import { Response } from 'express';
@@ -11,9 +21,12 @@ export class ReferralController {
   constructor(private readonly referralService: ReferralService) {}
 
   @Get('/:username')
-  async getReferralByUsername(@Param('username')username:string, @Res() res:Response):Promise<any> {
-    this.logger.log("GET REFERRAL BY USERNAME")
-    const result$ = this.referralService.getRefferalByUsername({username});
+  async getReferralByUsername(
+    @Param('username') username: string,
+    @Res() res: Response,
+  ): Promise<any> {
+    this.logger.log('GET REFERRAL BY USERNAME');
+    const result$ = this.referralService.getRefferalByUsername({ username });
     const result = await lastValueFrom(result$);
     return res.status(result.statusCode || 400).json({
       status: result.status,
@@ -23,8 +36,11 @@ export class ReferralController {
   }
 
   @Post()
-  async createReferral(@Body() createRefferalDto: CreateOrUpdateReferralDto, @Res() res: Response){
-    this.logger.log("CREATE REFERRAL")
+  async createReferral(
+    @Body() createRefferalDto: CreateOrUpdateReferralDto,
+    @Res() res: Response,
+  ) {
+    this.logger.log('CREATE REFERRAL');
     this.logger.log(`payload: ${JSON.stringify(createRefferalDto)}`);
     const result$ = this.referralService.create(createRefferalDto);
     const result = await lastValueFrom(result$);
@@ -32,12 +48,15 @@ export class ReferralController {
       status: result.status,
       data: result.data,
       message: result.message,
-    }); 
+    });
   }
 
   @Patch()
-  async updateReferral(@Body() updateRefferalDto: CreateOrUpdateReferralDto, @Res() res: Response){
-    this.logger.log("UPDATE REFERRAL")
+  async updateReferral(
+    @Body() updateRefferalDto: CreateOrUpdateReferralDto,
+    @Res() res: Response,
+  ) {
+    this.logger.log('UPDATE REFERRAL');
     this.logger.log(`payload: ${JSON.stringify(updateRefferalDto)}`);
     const result$ = this.referralService.update(updateRefferalDto);
     const result = await lastValueFrom(result$);
@@ -45,20 +64,20 @@ export class ReferralController {
       status: result.status,
       data: result.data,
       message: result.message,
-    }); 
+    });
   }
 
   @Delete(':id')
-  async deletReferral(@Param('id') id: string, @Res() res: Response){
-    this.logger.log("UPDATE REFERRAL")
+  async deletReferral(@Param('id') id: string, @Res() res: Response) {
+    this.logger.log('UPDATE REFERRAL');
     this.logger.log(`payload: ${JSON.stringify(id)}`);
-    const result$ = this.referralService.delete({id});
+    const result$ = this.referralService.delete({ id });
     const result = await lastValueFrom(result$);
     return res.status(result.statusCode || 400).json({
       status: result.status,
       data: result.data,
       message: result.message,
-    }); 
+    });
   }
 
   @Get('ping')
