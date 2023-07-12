@@ -18,6 +18,9 @@ export class CreateOrUpdateReferralDto {
   @IsString()
   notes: string;
 
+  @IsBoolean()
+  isDefault: boolean;
+
   @IsString()
   status: string;
 }
