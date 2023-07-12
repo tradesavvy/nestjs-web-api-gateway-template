@@ -14,5 +14,4 @@ export class VirtualTradeController {
     this.logger.log('ping...');
     return this.virtualService.ping();
   }
-
 }

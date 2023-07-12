@@ -28,7 +28,8 @@ export class OmsController extends AbstractJwtController {
     return this.omsService.ping();
   }
   @Post()
-  placeOrder(@Body() payload: any): any {
+  placeOrder(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
     return this.omsService.convertUserMessageToOrder(payload);
   }
   @Get('trades')
