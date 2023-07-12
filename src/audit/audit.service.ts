@@ -10,4 +10,8 @@ export class AuditService {
     return this.auditClient.send<any>(pattern, {});
   }
 
+  search(payload: any): any {
+    const pattern = { cmd: 'search' };
+    return this.auditClient.send<any>(pattern, payload);
+  }
 }
