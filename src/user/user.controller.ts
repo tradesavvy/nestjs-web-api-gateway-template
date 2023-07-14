@@ -51,8 +51,10 @@ export class UserController extends AbstractJwtController {
     return this.userService.updateUser(updateUser);
   }
 
-  @Get('email/:email')
-  getUserByEmail(@Param('email') email: string): any {
-    return this.userService.getUserByEmail(email);
+  @Get('emailOrPhone/:emailOrPhone')
+  getUserByEmailOrPhoneNumber(
+    @Param('emailOrPhone') emailOrPhone: string,
+  ): any {
+    return this.userService.getUserByEmailOrPhone(emailOrPhone);
   }
 }
