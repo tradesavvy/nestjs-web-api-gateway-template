@@ -32,6 +32,6 @@ export class UserBroker {
 export class ConnectUserBroker {
   userBrokerId: string;
   accountId: string;
-  accessToken: string;
+  requestToken: string;
   userName?: string;
 }
