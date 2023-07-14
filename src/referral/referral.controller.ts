@@ -36,6 +36,23 @@ export class ReferralController {
     });
   }
 
+  @Get('/user/:username/earninglist')
+  async getEarningListByUsername(
+    @Param('username') username: string,
+    @Res() res: Response,
+  ): Promise<any> {
+    this.logger.log('GET FRIEND REFERRAL BY USERNAME');
+    const result$ = this.referralService.getEarningListByUsername({
+      username,
+    });
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    });
+  }
+
   @Get('/user/:username/friendList')
   async getReferralFriendListByUsername(
     @Param('username') username: string,
