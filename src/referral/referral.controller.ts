@@ -13,6 +13,7 @@ import { ReferralService } from './referral.service';
 import { lastValueFrom } from 'rxjs';
 import { Response } from 'express';
 import { CreateOrUpdateReferralDto } from 'src/common/dtos/create-referral.dto';
+import { ReferralEarningDto } from 'src/common/dtos/user-earning.dto';
 
 @Controller('referral')
 export class ReferralController {
@@ -27,6 +28,39 @@ export class ReferralController {
   ): Promise<any> {
     this.logger.log('GET REFERRAL BY USERNAME');
     const result$ = this.referralService.getRefferalByUsername({ username });
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    });
+  }
+
+  @Get('/user/:username/friendList')
+  async getReferralFriendListByUsername(
+    @Param('username') username: string,
+    @Res() res: Response,
+  ): Promise<any> {
+    this.logger.log('GET FRIEND REFERRAL BY USERNAME');
+    const result$ = this.referralService.getReferralFriendListByUsername({
+      username,
+    });
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    });
+  }
+
+  @Post('/user/earning')
+  async referralEarning(
+    @Body() referralEarningDto: ReferralEarningDto,
+    @Res() res: Response,
+  ) {
+    this.logger.log('User Earning');
+    this.logger.log(`payload: ${JSON.stringify(referralEarningDto)}`);
+    const result$ = this.referralService.referralEarning(referralEarningDto);
     const result = await lastValueFrom(result$);
     return res.status(result.statusCode || 400).json({
       status: result.status,

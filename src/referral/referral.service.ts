@@ -21,6 +21,16 @@ export class ReferralService {
     return this.referralClient.send<any>(pattern, payload);
   }
 
+  getReferralFriendListByUsername(payload: any): Observable<ResponseDto> {
+    const pattern = { cmd: 'getReferralFriendListByUsername' };
+    return this.referralClient.send<any>(pattern, payload);
+  }
+
+  referralEarning(payload: any): Observable<ResponseDto> {
+    const pattern = { cmd: 'referralEarning' };
+    return this.referralClient.send<any>(pattern, payload);
+  }
+
   create(payload: any): Observable<ResponseDto> {
     const pattern = { cmd: 'createReferral' };
     return this.referralClient.send<any>(pattern, payload);
