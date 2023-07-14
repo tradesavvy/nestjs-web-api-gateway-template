@@ -369,6 +369,13 @@ export class AuthController {
     }
   }
 
+  @Get('users/emailOrPhone/:emailOrPhone')
+  getUserByEmailOrPhoneNumber(
+    @Param('emailOrPhone') emailOrPhone: string,
+  ): any {
+    return this.userService.getUserByEmailOrPhone(emailOrPhone);
+  }
+
   @Get('/:email/forgot-password')
   async forgotPassword(@Param('email') email: string): Promise<any> {
     this.logger.log('UserController send Forgot password ... ');
