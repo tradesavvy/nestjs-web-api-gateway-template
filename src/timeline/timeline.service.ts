@@ -8,9 +8,18 @@ export class TimelineService {
     const pattern = { cmd: 'search' };
     const today = new Date();
     const formattedToday = format(today, 'yyyy-MM-dd');
+    const mapping = {
+      properties: {
+        eventTime: {
+          type: 'date',
+          format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+        },
+      },
+    };
     const queryBody = {
       indexName: 'timeline',
       body: {
+        mappings: mapping,
         query: {
           bool: {
             must: [
@@ -30,6 +39,11 @@ export class TimelineService {
             ],
           },
         },
+        sort: [
+          {
+            eventTime: { order: 'asc' }, // Sorting by eventTime field in ascending order
+          },
+        ],
       },
     };
 
