@@ -22,4 +22,9 @@ export class OmsService {
     const pattern = { cmd: 'getTrades' };
     return this.omsClient.send<any>(pattern, { userName: userName });
   }
+  getTradesById(payload: { userName: any; tradeId: string }): any {
+    this.logger.log('getTradesById ' + payload.tradeId);
+    const pattern = { cmd: 'getTradesById' };
+    return this.omsClient.send<any>(pattern, payload);
+  }
 }

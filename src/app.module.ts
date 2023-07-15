@@ -16,6 +16,7 @@ import { VirtualTradeModule } from './virtual-trade/virtual-trade.module';
 import { UserGlobalriskController } from './user/userglobalrisk.controller';
 import { TimeModule } from './time/time.module';
 import { TradejourneyModule } from './tradejourney/tradejourney.module';
+import { TimelineModule } from './timeline/timeline.module';
 
 import * as cookieParser from 'cookie-parser';
 @Module({
@@ -36,6 +37,7 @@ import * as cookieParser from 'cookie-parser';
     VirtualTradeModule,
     TimeModule,
     TradejourneyModule,
+    TimelineModule,
   ],
   controllers: [AppController],
   providers: [AppService],

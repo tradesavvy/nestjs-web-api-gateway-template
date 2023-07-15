@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Logger,
+  Param,
   Post,
   Req,
   UseGuards,
@@ -30,10 +31,20 @@ export class OmsController extends AbstractJwtController {
   @Post()
   placeOrder(@Req() req: any, @Body() payload: any): any {
     payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
     return this.omsService.convertUserMessageToOrder(payload);
   }
   @Get('trades')
   getTrades(@Req() req: any): any {
     return this.omsService.getTrades(req.user.username);
+  }
+  @Get('trades/:tradeId')
+  getTradesById(@Req() req: any, @Param('tradeId') tradeId: string): any {
+    {
+      return this.omsService.getTradesById({
+        userName: req.user.username,
+        tradeId: tradeId,
+      });
+    }
   }
 }
