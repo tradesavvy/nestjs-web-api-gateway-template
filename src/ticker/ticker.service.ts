@@ -22,4 +22,8 @@ export class TickerService {
     const pattern = { cmd: 'stopSimulator' };
     return this.tickerClient.send<any>(pattern, {});
   }
+  getAtm(): any {
+    const pattern = { cmd: 'getAtm' };
+    return this.tickerClient.send<any>(pattern, {});
+  }
 }
