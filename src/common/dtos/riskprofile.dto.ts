@@ -10,12 +10,14 @@ export class CreateRiskProfileDto {
   scalpProfit: number;
   maxLossPerTrade: number;
   lots: number;
-  quantityFactor: number;
   fixedQuantiy: boolean;
   fixedProfit: boolean;
   targetPoint: number[];
   targetPercentage: number;
+  targetPointSelected: number;
   slPercentage: number;
+  slice: number;
+  fundUtil: number;
 }
 export class UpdateRiskProfileDto {
   riskProfileId?: string;
@@ -23,14 +25,16 @@ export class UpdateRiskProfileDto {
   userName?: string;
   tolerance: number;
   scalpProfit: number;
-  dayGoal: number;
   lots: number;
-  quantityFactor: number;
+  maxLossPerTrade: number;
   fixedQuantiy: boolean;
   fixedProfit: boolean;
   targetPoint: number[];
   targetPercentage: number;
+  targetPointSelected: number;
   slPercentage: number;
+  slice: number;
+  fundUtil: number;
 }
 export class DeleteUserRiskProfileDto {
   userName: string;
