@@ -47,7 +47,6 @@ export class UserBrokersController extends AbstractJwtController {
   @Post()
   createUserBroker(@Req() req: any, @Body() dto: CreateUserBrokerDto): any {
     this.logger.log('Received request for createUserBroker: ' + dto);
-    this.authorizationCheck(req, dto.userName);
     dto.userName = req.user.username;
     return this.userbrokersService.createUserBroker(dto);
   }
