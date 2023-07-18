@@ -192,6 +192,9 @@ export class AuthController {
           this.logger.log(
             'Adding user to Auth service' + JSON.stringify(userCreated),
           );
+          await lastValueFrom(
+            this.createReferralByUser(createUserDTO.userName),
+          );
           if (createUserDTO.referralCode) {
             const restult = this.referralService.createUserReferral(
               createUserDTO.referralCode,
@@ -217,6 +220,15 @@ export class AuthController {
     }
   }
 
+  createReferralByUser(_username) {
+    return this.referralService.create({
+      username: _username,
+      myShare: 10,
+      notes: 'created while register',
+      friendShare: 10,
+      isDefault: true,
+    });
+  }
   private emitUserCreatedEvent(createUserDTO: CreateUserDTO) {
     this.logger.log('emitting UserRegisterEvent... ');
     this.emitter.emit(
