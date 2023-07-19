@@ -11,11 +11,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     }),
     ClientsModule.register([
       {
-        name: 'OMS',
+        name: 'ZERODHA',
         transport: Transport.RMQ,
         options: {
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
-          queue: process.env.RMQ_INSTRUMENT_OMS_NAME || 'laabhum_oms_queue',
+          queue: process.env.RMQ_ZERODHA_QUEUE_NAME || 'zerodha_adapter_queue',
           queueOptions: {
             durable: false,
           },

@@ -6,10 +6,10 @@ import { Order } from 'src/common/dtos/order';
 export class ZerodhahookService {
   private readonly logger = new Logger(ZerodhahookService.name);
 
-  constructor(@Inject('OMS') private readonly omsClient: ClientProxy) {}
+  constructor(@Inject('ZERODHA') private readonly zerodhaClient: ClientProxy) {}
   processZerodhOrderUpdate(payload: Order) {
-    this.logger.log('processOrderUpdate ' + payload);
+    this.logger.log('processZerodhOrderUpdate ' + payload);
     const pattern = { cmd: 'processZerodhOrderUpdate' };
-    return this.omsClient.emit<any>(pattern, payload);
+    this.zerodhaClient.emit<any>(pattern, payload);
   }
 }
