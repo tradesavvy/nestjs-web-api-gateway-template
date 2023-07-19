@@ -17,6 +17,11 @@ export class OmsService {
     const pattern = { cmd: 'convertUserMessageToOrder' };
     return this.omsClient.send<any>(pattern, payload);
   }
+  convertUserMessageToStrategy(payload: any): any {
+    this.logger.log('convertUserMessageToStrategy ' + JSON.stringify(payload));
+    const pattern = { cmd: 'convertUserMessageToStrategy' };
+    return this.omsClient.send<any>(pattern, payload);
+  }
   getTrades(userName: any): any {
     this.logger.log('getTrades ' + userName);
     const pattern = { cmd: 'getTrades' };

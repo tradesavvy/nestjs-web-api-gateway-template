@@ -34,6 +34,13 @@ export class OmsController extends AbstractJwtController {
     payload.source = 'LAABHUM';
     return this.omsService.convertUserMessageToOrder(payload);
   }
+  @Post('/strategy')
+  placeStrategyOrder(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.convertUserMessageToStrategy(payload);
+  }
+  convertUserMessageToStrategy;
   @Get('trades')
   getTrades(@Req() req: any): any {
     return this.omsService.getTrades(req.user.username);
