@@ -14,7 +14,7 @@ import { KafkaAdminController } from './kafkaadmin.controller';
           urls: [process.env.RMQ_TRANSPORT_URL || ''],
           queue:
             process.env.RMQ_CONFIGURATION_QUEUE_NAME ||
-            'laabam_configuration_queue',
+            'laabhum_configuration_queue',
           queueOptions: {
             durable: false,
           },
