@@ -101,6 +101,13 @@ export class UserBrokersController extends AbstractJwtController {
     return this.userbrokersService.enableTrade(dto);
   }
 
+  @Post('deactivate')
+  disableTrade(@Req() req: any, @Body() dto: UserBroker): any {
+    dto.userName = req.user.username;
+    this.logger.log('Received request for disableTrade: ' + dto);
+    return this.userbrokersService.disableTrade(dto);
+  }
+
   @Post('sort')
   updateSortOrder(@Req() req: any, @Body() dto: UpdateSortOrderDto): any {
     dto.userName = req.user.username;

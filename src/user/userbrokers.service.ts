@@ -52,6 +52,12 @@ export class UserbrokersService {
     return this.userClient.send<any>(pattern, dto);
   }
 
+  async disableTrade(dto: any): Promise<any> {
+    this.logger.log('Received request for disableTrade: ' + dto);
+    const pattern = { cmd: 'disableTrade' };
+    return this.userClient.send<any>(pattern, dto);
+  }
+
   async updateSortOrder(dto: any): Promise<any> {
     this.logger.log('Received request for updateSortOrder: ' + dto);
     const pattern = { cmd: 'updateSortOrder' };
