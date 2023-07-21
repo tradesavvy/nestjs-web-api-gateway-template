@@ -14,9 +14,18 @@ export class ConfigurationService {
     return this.configurationClient.send<any>(pattern, {});
   }
 
-  async createTopic(dto: any): Promise<any> {
-    this.logger.log('Received request for createTopic: ' + JSON.stringify(dto));
-    const pattern = { cmd: 'createTopic' };
+  async createTopics(dto: any): Promise<any> {
+    this.logger.log(
+      'Received request for createTopics: ' + JSON.stringify(dto),
+    );
+    const pattern = { cmd: 'createTopics' };
+    return this.configurationClient.send<any>(pattern, dto);
+  }
+  async deleteTopics(dto: any): Promise<any> {
+    this.logger.log(
+      'Received request for deleteTopics: ' + JSON.stringify(dto),
+    );
+    const pattern = { cmd: 'deleteTopics' };
     return this.configurationClient.send<any>(pattern, dto);
   }
   async createUserBroker(dto: any): Promise<any> {

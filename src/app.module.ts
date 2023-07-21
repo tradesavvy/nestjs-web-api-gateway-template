@@ -13,12 +13,14 @@ import { ZerodhawebhookModule } from './zerodhawebhook/zerodhawebhook.module';
 import { ConfigurationModule } from './configuration/configuration.module';
 import { AuditModule } from './audit/audit.module';
 import { VirtualTradeModule } from './virtual-trade/virtual-trade.module';
-import { UserGlobalriskController } from './user/userglobalrisk.controller';
 import { TimeModule } from './time/time.module';
 import { TradejourneyModule } from './tradejourney/tradejourney.module';
 import { TimelineModule } from './timeline/timeline.module';
 
 import * as cookieParser from 'cookie-parser';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './middleware/logging.interceptor';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -40,7 +42,13 @@ import * as cookieParser from 'cookie-parser';
     TimelineModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
