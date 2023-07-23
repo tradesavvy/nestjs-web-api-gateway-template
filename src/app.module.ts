@@ -27,9 +27,6 @@ import { LoggingInterceptor } from './middleware/logging.interceptor';
       isGlobal: true,
     }),
     InstrumentModule,
-    SocialModule,
-    UserModule,
-    AuthModule,
     TickerModule,
     OmsModule,
     ReferralModule,
@@ -40,6 +37,8 @@ import { LoggingInterceptor } from './middleware/logging.interceptor';
     TimeModule,
     TradejourneyModule,
     TimelineModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [

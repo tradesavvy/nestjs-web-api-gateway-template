@@ -34,13 +34,7 @@ export class OmsController extends AbstractJwtController {
     payload.source = 'LAABHUM';
     return this.omsService.convertUserMessageToOrder(payload);
   }
-  @Post('/strategy')
-  placeStrategyOrder(@Req() req: any, @Body() payload: any): any {
-    payload.userName = req.user.username;
-    payload.source = 'LAABHUM';
-    return this.omsService.convertUserMessageToStrategy(payload);
-  }
-  convertUserMessageToStrategy;
+
   @Get('trades')
   getTrades(@Req() req: any): any {
     return this.omsService.getTrades(req.user.username);
@@ -53,5 +47,49 @@ export class OmsController extends AbstractJwtController {
         tradeId: tradeId,
       });
     }
+  }
+  @Post('/strategy/order')
+  placeStrategyOrder(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.convertUserMessageToStrategy(payload);
+  }
+  @Get('/strategy')
+  getStrategy(@Req() req: any): any {
+    return this.omsService.getStrategies({
+      userName: req.user.username,
+    });
+  }
+  @Get('/strategy/:tradeId')
+  getStrategyById(@Req() req: any, @Param('tradeId') tradeId: string): any {
+    return this.omsService.getStrategyById({
+      userName: req.user.username,
+      tradeId: tradeId,
+    });
+  }
+  @Post('/strategy/trend')
+  createStrategiesByTrend(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.createStrategiesByTrend(payload);
+  }
+
+  @Post('/strategy/execute')
+  executeUserStrategy(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.executeUserStrategy(payload);
+  }
+  @Post('/strategy/exit')
+  exitUserStrategy(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.exitUserStrategy(payload);
+  }
+  @Post('/strategy/trigger')
+  triggerUserStategy(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.triggerUserStategy(payload);
   }
 }

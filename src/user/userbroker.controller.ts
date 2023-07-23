@@ -30,10 +30,7 @@ export class UserBrokersController extends AbstractJwtController {
   }
   private readonly logger = new Logger(UserBrokersController.name);
 
-  constructor(
-    private readonly userbrokersService: UserbrokersService,
-    private readonly emitter: EventEmitter2,
-  ) {
+  constructor(private readonly userbrokersService: UserbrokersService) {
     super();
   }
 

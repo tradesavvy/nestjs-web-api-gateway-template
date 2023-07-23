@@ -19,7 +19,16 @@ export class UserService implements OnApplicationBootstrap {
   ) {}
 
   onApplicationBootstrap() {
-    this.userClient.connect();
+    try {
+      this.userClient
+        .connect()
+        .then((a) => {
+          this.logger.log('user client connected');
+        })
+        .catch((err) => {
+          this.logger.log('user client ' + JSON.stringify(err));
+        });
+    } catch (error) {}
   }
 
   createUser(createUserDTO: CreateUserDTO) {

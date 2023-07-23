@@ -52,5 +52,6 @@ import { UserglobalriskService } from './userglobalrisk.service';
     UserWatchlistService,
     UserglobalriskService,
   ],
+  exports: [UserService],
 })
 export class UserModule {}

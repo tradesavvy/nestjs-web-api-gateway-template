@@ -26,11 +26,7 @@ export class UserRiskProfileController extends AbstractJwtController {
   }
   private readonly logger = new Logger(UserRiskProfileController.name);
 
-  constructor(
-    private readonly userRiskProfileService: UserRiskProfileService,
-
-    private readonly emitter: EventEmitter2,
-  ) {
+  constructor(private readonly userRiskProfileService: UserRiskProfileService) {
     super();
   }
 

@@ -58,7 +58,7 @@ import { ReferralService } from 'src/referral/referral.service';
     UserModule,
     JwtAuthModule,
   ],
-  providers: [AuthService, UserService, ReferralService, LocalStrategy],
+  providers: [AuthService, ReferralService, LocalStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
