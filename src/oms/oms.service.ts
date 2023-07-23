@@ -21,7 +21,7 @@ export class OmsService {
   convertUserMessageToStrategy(payload: any): any {
     this.logger.log('convertUserMessageToStrategy ' + JSON.stringify(payload));
     const pattern = { cmd: 'convertUserMessageToStrategy' };
-    this.omsClient.send<any>(pattern, payload);
+    return this.omsClient.send<any>(pattern, payload);
   }
   getTrades(userName: any): any {
     this.logger.log('getTrades ' + userName);
