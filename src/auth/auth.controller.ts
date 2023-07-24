@@ -267,46 +267,18 @@ export class AuthController {
     @Res() res: Response,
   ) {
     this.logger.log('Received request for reset password by user');
-    const userResetPassInAuthObservable = await this.authService.resetPassword({
+    const result$ = await this.authService.resetPassword({
       username: username,
       oldPassword: oldPassword,
       newPassword: newPassword,
       confirmPassword: confirmPassword,
     });
-
-    const userResetPassInAuth = await lastValueFrom(
-      userResetPassInAuthObservable,
-    );
-    if (userResetPassInAuth.status === 'error') {
-      return res.status(userResetPassInAuth.statusCode || 400).json({
-        status: userResetPassInAuth.status,
-        message: userResetPassInAuth.message,
-      });
-    }
-    if (userResetPassInAuth) {
-      const updateUserResetPassObservable = this.userService.resetPassword(
-        userResetPassInAuth.data,
-      );
-      const updateUserResetPassword = await lastValueFrom(
-        updateUserResetPassObservable,
-      );
-      if (updateUserResetPassword) {
-        this.logger.log(
-          'update reset password' + JSON.stringify(updateUserResetPassword),
-        );
-        return res.status(updateUserResetPassword.statusCode || 400).json({
-          status: updateUserResetPassword.status,
-          data: updateUserResetPassword.data,
-          message:
-            updateUserResetPassword.message || 'Password reset successfully',
-        });
-      }
-    } else {
-      throw new HttpException(
-        'Unable to reset password ' + username,
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    });
   }
 
   @Post('/:username/resent-mail-otp')
