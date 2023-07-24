@@ -264,7 +264,6 @@ export class AuthController {
     @Body('oldPassword') oldPassword: string,
     @Body('newPassword') newPassword: string,
     @Body('confirmPassword') confirmPassword: string,
-    @Body('token') token = '',
     @Res() res: Response,
   ) {
     this.logger.log('Received request for reset password by user');
@@ -273,7 +272,6 @@ export class AuthController {
       oldPassword: oldPassword,
       newPassword: newPassword,
       confirmPassword: confirmPassword,
-      token: token,
     });
 
     const userResetPassInAuth = await lastValueFrom(
