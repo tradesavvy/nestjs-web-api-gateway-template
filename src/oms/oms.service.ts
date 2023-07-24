@@ -23,6 +23,11 @@ export class OmsService {
     const pattern = { cmd: 'convertUserMessageToStrategy' };
     return this.omsClient.send<any>(pattern, payload);
   }
+  getTrends(): any {
+    this.logger.log('getTrends ');
+    const pattern = { cmd: 'getTrends' };
+    return this.omsClient.send<any>(pattern, {});
+  }
   getTrades(userName: any): any {
     this.logger.log('getTrades ' + userName);
     const pattern = { cmd: 'getTrades' };
@@ -89,6 +94,37 @@ export class OmsService {
     );
     const pattern = { cmd: 'triggerUserStategy' };
     this.omsClient.emit<any>(pattern, payload);
-    return handleSuccessResponse('success', null);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  async ctcChildOrder(payload: any): Promise<any> {
+    this.logger.log('ctcChildOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'ctcChildOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  async exitChildOrder(payload: any): Promise<any> {
+    this.logger.log('exitChildOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'exitChildOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  async cancelEntryOrder(payload: any): Promise<any> {
+    this.logger.log('cancelEntryOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'cancelEntryOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  async modifyParentOrder(payload: any): Promise<any> {
+    this.logger.log('modifyParentOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'modifyParentOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  async modifyChildOrder(payload: any): Promise<any> {
+    this.logger.log('modifyChildOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'modifyChildOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    0;
+    return handleSuccessResponse('success', { message: 'Request Received' });
   }
 }

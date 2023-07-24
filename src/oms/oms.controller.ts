@@ -4,6 +4,7 @@ import {
   Get,
   Logger,
   Param,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -39,6 +40,12 @@ export class OmsController extends AbstractJwtController {
   getTrades(@Req() req: any): any {
     return this.omsService.getTrades(req.user.username);
   }
+
+  @Get('trends')
+  getTrends(): any {
+    return this.omsService.getTrends();
+  }
+
   @Get('trades/:tradeId')
   getTradesById(@Req() req: any, @Param('tradeId') tradeId: string): any {
     {
@@ -91,5 +98,67 @@ export class OmsController extends AbstractJwtController {
     payload.userName = req.user.username;
     payload.source = 'LAABHUM';
     return this.omsService.triggerUserStategy(payload);
+  }
+  @Post('ctc/:tradeId/:orderId')
+  ctc(
+    @Req() req: any,
+    @Param('tradeId') tradeId: string,
+    @Param('orderId') orderId: string,
+  ): any {
+    const payload: any = {};
+    payload.userName = req.user.username;
+    payload.tradeId = tradeId;
+    payload.orderId = orderId;
+    return this.omsService.ctcChildOrder(payload);
+  }
+  @Post('exit/:tradeId/:orderId')
+  exit(
+    @Req() req: any,
+    @Param('tradeId') tradeId: string,
+    @Param('orderId') orderId: string,
+  ): any {
+    const payload: any = {};
+    payload.userName = req.user.username;
+    payload.tradeId = tradeId;
+    payload.orderId = orderId;
+    return this.omsService.exitChildOrder(payload);
+  }
+  @Post('cancel/:tradeId/:orderId')
+  cancelEntryOrder(
+    @Req() req: any,
+    @Param('tradeId') tradeId: string,
+    @Param('orderId') orderId: string,
+  ): any {
+    const payload: any = {};
+    payload.userName = req.user.username;
+    payload.tradeId = tradeId;
+    payload.orderId = orderId;
+    return this.omsService.cancelEntryOrder(payload);
+  }
+  @Patch(':orderType/:tradeId')
+  modifyParentOrder(
+    @Req() req: any,
+    @Param('orderType') orderType,
+    @Param('tradeId') tradeId: string,
+    @Body() payload: any,
+  ): any {
+    payload.userName = req.user.username;
+    payload.ordertype = orderType;
+    payload.tradeId = tradeId;
+    return this.omsService.modifyParentOrder(payload);
+  }
+  @Patch(':orderType/:tradeId/:orderId')
+  modifyChildOrder(
+    @Req() req: any,
+    @Param('orderType') orderType,
+    @Param('tradeId') tradeId: string,
+    @Param('orderId') orderId: string,
+    @Body() payload: any,
+  ): any {
+    payload.userName = req.user.username;
+    payload.ordertype = orderType;
+    payload.tradeId = tradeId;
+    payload.orderId = orderId;
+    return this.omsService.modifyChildOrder(payload);
   }
 }
