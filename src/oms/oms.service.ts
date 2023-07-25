@@ -102,6 +102,18 @@ export class OmsService {
     this.omsClient.emit<any>(pattern, payload);
     return handleSuccessResponse('success', { message: 'Request Received' });
   }
+  catchChildOrder(payload: any): any {
+    this.logger.log('catchChildOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'catchChildOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  catchParentOrder(payload: any): any {
+    this.logger.log('catchParentOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'catchParentOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
   async exitChildOrder(payload: any): Promise<any> {
     this.logger.log('exitChildOrder ' + JSON.stringify(payload));
     const pattern = { cmd: 'exitChildOrder' };

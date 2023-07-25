@@ -50,6 +50,25 @@ export class OmsController extends AbstractJwtController {
       });
     }
   }
+  @Post('catch/:tradeId')
+  catchParent(@Req() req: any, @Param('tradeId') tradeId: string): any {
+    const payload: any = {};
+    payload.userName = req.user.username;
+    payload.tradeId = tradeId;
+    return this.omsService.catchParentOrder(payload);
+  }
+  @Post('catch/:tradeId/:orderId')
+  catchChild(
+    @Req() req: any,
+    @Param('tradeId') tradeId: string,
+    @Param('orderId') orderId: string,
+  ): any {
+    const payload: any = {};
+    payload.userName = req.user.username;
+    payload.tradeId = tradeId;
+    payload.orderId = orderId;
+    return this.omsService.catchChildOrder(payload);
+  }
   @Post('ctc/:tradeId')
   ctcParent(@Req() req: any, @Param('tradeId') tradeId: string): any {
     const payload: any = {};
