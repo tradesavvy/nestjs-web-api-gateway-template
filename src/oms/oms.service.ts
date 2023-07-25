@@ -108,9 +108,9 @@ export class OmsService {
     this.omsClient.emit<any>(pattern, payload);
     return handleSuccessResponse('success', { message: 'Request Received' });
   }
-  async cancelEntryOrder(payload: any): Promise<any> {
-    this.logger.log('cancelEntryOrder ' + JSON.stringify(payload));
-    const pattern = { cmd: 'cancelEntryOrder' };
+  async cancelChildEntryOrder(payload: any): Promise<any> {
+    this.logger.log('cancelChildEntryOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'cancelChildEntryOrder' };
     this.omsClient.emit<any>(pattern, payload);
     return handleSuccessResponse('success', { message: 'Request Received' });
   }
@@ -125,6 +125,31 @@ export class OmsService {
     const pattern = { cmd: 'modifyChildOrder' };
     this.omsClient.emit<any>(pattern, payload);
     0;
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+
+  cancelParentEntryOrder(payload: any): any {
+    this.logger.log('cancelParentEntryOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'cancelParentEntryOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  exitParentOrder(payload: any): any {
+    this.logger.log('exitParentOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'exitParentOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  exitAll(payload: any): any {
+    this.logger.log('exitAll ' + JSON.stringify(payload));
+    const pattern = { cmd: 'exitAll' };
+    this.omsClient.emit<any>(pattern, payload);
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
+  ctcParentOrder(payload: any): any {
+    this.logger.log('ctcParentOrder ' + JSON.stringify(payload));
+    const pattern = { cmd: 'ctcParentOrder' };
+    this.omsClient.emit<any>(pattern, payload);
     return handleSuccessResponse('success', { message: 'Request Received' });
   }
 }

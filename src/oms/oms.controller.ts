@@ -41,11 +41,6 @@ export class OmsController extends AbstractJwtController {
     return this.omsService.getTrades(req.user.username);
   }
 
-  @Get('trends')
-  getTrends(): any {
-    return this.omsService.getTrends();
-  }
-
   @Get('trades/:tradeId')
   getTradesById(@Req() req: any, @Param('tradeId') tradeId: string): any {
     {
@@ -55,52 +50,15 @@ export class OmsController extends AbstractJwtController {
       });
     }
   }
-  @Post('/strategy/order')
-  placeStrategyOrder(@Req() req: any, @Body() payload: any): any {
+  @Post('ctc/:tradeId')
+  ctcParent(@Req() req: any, @Param('tradeId') tradeId: string): any {
+    const payload: any = {};
     payload.userName = req.user.username;
-    payload.source = 'LAABHUM';
-    return this.omsService.convertUserMessageToStrategy(payload);
-  }
-  @Get('/strategy')
-  getStrategy(@Req() req: any): any {
-    return this.omsService.getStrategies({
-      userName: req.user.username,
-    });
-  }
-  @Get('/strategy/:tradeId')
-  getStrategyById(@Req() req: any, @Param('tradeId') tradeId: string): any {
-    return this.omsService.getStrategyById({
-      userName: req.user.username,
-      tradeId: tradeId,
-    });
-  }
-  @Post('/strategy/trend')
-  createStrategiesByTrend(@Req() req: any, @Body() payload: any): any {
-    payload.userName = req.user.username;
-    payload.source = 'LAABHUM';
-    return this.omsService.createStrategiesByTrend(payload);
-  }
-
-  @Post('/strategy/execute')
-  executeUserStrategy(@Req() req: any, @Body() payload: any): any {
-    payload.userName = req.user.username;
-    payload.source = 'LAABHUM';
-    return this.omsService.executeUserStrategy(payload);
-  }
-  @Post('/strategy/exit')
-  exitUserStrategy(@Req() req: any, @Body() payload: any): any {
-    payload.userName = req.user.username;
-    payload.source = 'LAABHUM';
-    return this.omsService.exitUserStrategy(payload);
-  }
-  @Post('/strategy/trigger')
-  triggerUserStategy(@Req() req: any, @Body() payload: any): any {
-    payload.userName = req.user.username;
-    payload.source = 'LAABHUM';
-    return this.omsService.triggerUserStategy(payload);
+    payload.tradeId = tradeId;
+    return this.omsService.ctcParentOrder(payload);
   }
   @Post('ctc/:tradeId/:orderId')
-  ctc(
+  ctcChild(
     @Req() req: any,
     @Param('tradeId') tradeId: string,
     @Param('orderId') orderId: string,
@@ -111,8 +69,21 @@ export class OmsController extends AbstractJwtController {
     payload.orderId = orderId;
     return this.omsService.ctcChildOrder(payload);
   }
+  @Post('exit')
+  exitAll(@Req() req: any): any {
+    const payload: any = {};
+    payload.userName = req.user.username;
+    return this.omsService.exitAll(payload);
+  }
+  @Post('exit/:tradeId')
+  exitParentOrder(@Req() req: any, @Param('tradeId') tradeId: string): any {
+    const payload: any = {};
+    payload.userName = req.user.username;
+    payload.tradeId = tradeId;
+    return this.omsService.exitParentOrder(payload);
+  }
   @Post('exit/:tradeId/:orderId')
-  exit(
+  exitChildOrder(
     @Req() req: any,
     @Param('tradeId') tradeId: string,
     @Param('orderId') orderId: string,
@@ -123,8 +94,19 @@ export class OmsController extends AbstractJwtController {
     payload.orderId = orderId;
     return this.omsService.exitChildOrder(payload);
   }
+  @Post('cancel/:tradeId')
+  cancelParentEntryOrder(
+    @Req() req: any,
+    @Param('tradeId') tradeId: string,
+  ): any {
+    const payload: any = {};
+    payload.userName = req.user.username;
+    payload.tradeId = tradeId;
+
+    return this.omsService.cancelParentEntryOrder(payload);
+  }
   @Post('cancel/:tradeId/:orderId')
-  cancelEntryOrder(
+  cancelChildEntryOrder(
     @Req() req: any,
     @Param('tradeId') tradeId: string,
     @Param('orderId') orderId: string,
@@ -133,7 +115,7 @@ export class OmsController extends AbstractJwtController {
     payload.userName = req.user.username;
     payload.tradeId = tradeId;
     payload.orderId = orderId;
-    return this.omsService.cancelEntryOrder(payload);
+    return this.omsService.cancelChildEntryOrder(payload);
   }
   @Patch(':orderType/:tradeId')
   modifyParentOrder(
@@ -160,5 +142,55 @@ export class OmsController extends AbstractJwtController {
     payload.tradeId = tradeId;
     payload.orderId = orderId;
     return this.omsService.modifyChildOrder(payload);
+  }
+  @Get('trends')
+  getTrends(): any {
+    return this.omsService.getTrends();
+  }
+  @Post('/strategy/order')
+  placeStrategyOrder(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.convertUserMessageToStrategy(payload);
+  }
+  @Post('/strategy/trend')
+  createStrategiesByTrend(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.createStrategiesByTrend(payload);
+  }
+  @Get('/strategy')
+  getStrategy(@Req() req: any): any {
+    return this.omsService.getStrategies({
+      userName: req.user.username,
+    });
+  }
+  @Get('/strategy/:tradeId')
+  getStrategyById(@Req() req: any, @Param('tradeId') tradeId: string): any {
+    return this.omsService.getStrategyById({
+      userName: req.user.username,
+      tradeId: tradeId,
+    });
+  }
+
+  @Post('/strategy/execute')
+  executeUserStrategy(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.executeUserStrategy(payload);
+  }
+
+  @Post('/strategy/exit')
+  exitUserStrategy(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.exitUserStrategy(payload);
+  }
+
+  @Post('/strategy/trigger')
+  triggerUserStategy(@Req() req: any, @Body() payload: any): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    return this.omsService.triggerUserStategy(payload);
   }
 }
