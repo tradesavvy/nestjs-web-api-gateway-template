@@ -27,6 +27,7 @@ import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
 import { ReferralService } from 'src/referral/referral.service';
+import { UserVerifiedEvent } from 'src/common/event/user.verify.event';
 
 @Controller()
 @ApiTags('Auth')
@@ -65,6 +66,9 @@ export class AuthController {
     );
 
     if (enrichedUser.status === 'error') {
+      if (enrichedUser.statusCode === 403) {
+        this.emitUserVerifyEvent(enrichedUser.data.userName);
+      }
       return res.status(enrichedUser.statusCode).json({
         status: enrichedUser.status,
         message: enrichedUser.message,
@@ -235,6 +239,11 @@ export class AuthController {
       'user.register',
       new UserRegisterEvent(createUserDTO.userName),
     );
+  }
+
+  private emitUserVerifyEvent(username: string) {
+    this.logger.log('emitting emitUserVerifyEvent... ');
+    this.emitter.emit('user.login.verify', new UserVerifiedEvent(username));
   }
 
   private async createUserInAuthModule(createUserDTO: CreateUserDTO) {

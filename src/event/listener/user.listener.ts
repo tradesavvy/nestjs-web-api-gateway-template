@@ -18,4 +18,11 @@ export class UserEventListener {
     this.logger.log('Emitting  UserRegisterEvent to authClient ');
     this.authClient.emit<string>('user_register', event);
   }
+
+  @OnEvent('user.login.verify')
+  handleUserLoginVerifyEvent(event: UserRegisterEvent) {
+    this.logger.log('recieved event' + JSON.stringify(event));
+    this.logger.log('Emitting  handleUserLoginVerifyEvent to authClient ');
+    this.authClient.emit<string>('user_login_verify', event);
+  }
 }
