@@ -20,6 +20,7 @@ import { TimelineModule } from './timeline/timeline.module';
 import * as cookieParser from 'cookie-parser';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './middleware/logging.interceptor';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { LoggingInterceptor } from './middleware/logging.interceptor';
     TimelineModule,
     UserModule,
     AuthModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [

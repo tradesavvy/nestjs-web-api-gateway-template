@@ -5,7 +5,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { PassportModule } from '@nestjs/passport';
 import { JwtAuthModule } from 'src/jwt/jwt-auth.module';
 import { UserModule } from 'src/user/user.module';
-import { UserService } from 'src/user/user.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './strategies/local.strategy';
