@@ -1,5 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
+import { ResponseDto } from 'src/common/dtos/response.dto';
 
 @Injectable()
 export class WhatsAppBotService {
@@ -9,7 +11,7 @@ export class WhatsAppBotService {
     @Inject('WHATSAPPBOT') private readonly whatsAppBotClient: ClientProxy,
   ) {}
 
-  sendNotification(payload: any) {
+  sendNotification(payload: any): Observable<ResponseDto> {
     const { template, to, dialCode, body } = payload;
     this.logger.log('sendNotification payload ' + JSON.stringify(payload));
     const pattern = { cmd: 'sendNotification' };
@@ -19,6 +21,6 @@ export class WhatsAppBotService {
       dialCode: dialCode,
       messagebody: body,
     };
-    this.whatsAppBotClient.send<any>(pattern, data);
+    return this.whatsAppBotClient.send<any>(pattern, data);
   }
 }
