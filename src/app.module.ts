@@ -21,6 +21,7 @@ import * as cookieParser from 'cookie-parser';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './middleware/logging.interceptor';
 import { EventModule } from './event/event.module';
+import { WhatsAppBotModule } from './whatsappbot/whatsappbot.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { EventModule } from './event/event.module';
     UserModule,
     AuthModule,
     EventModule,
+    WhatsAppBotModule,
   ],
   controllers: [AppController],
   providers: [
