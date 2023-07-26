@@ -8,6 +8,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { CreateUserDTO } from 'src/common/dtos/create-user.request.dto';
+import { ResponseDto } from 'src/common/dtos/response.dto';
 
 @Injectable()
 export class UserService implements OnApplicationBootstrap {
@@ -65,6 +66,18 @@ export class UserService implements OnApplicationBootstrap {
     const pattern = { cmd: 'getUserByUsername' };
     this.logger.log('getUserByUsername' + payload);
     return this.userClient.send<any>(pattern, { username: payload });
+  }
+
+  userWhatsAppVerifyOtp(payload: any): Observable<ResponseDto> {
+    const pattern = { cmd: 'userWhatsAppVerifyOtp' };
+    this.logger.log('userWhatsAppVerifyOtp' + payload);
+    return this.userClient.send<any>(pattern, payload);
+  }
+
+  disConnectWhatsAppUser(payload: any): Observable<ResponseDto> {
+    const pattern = { cmd: 'disConnectWhatsAppUser' };
+    this.logger.log('disConnectWhatsAppUser' + payload);
+    return this.userClient.send<any>(pattern, payload);
   }
 
   updateUser(payload: any): any {

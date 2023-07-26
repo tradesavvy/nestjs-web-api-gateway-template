@@ -5,14 +5,17 @@ import {
   Logger,
   Param,
   Patch,
+  Post,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { UserService } from './user.service';
 
 import { AbstractJwtController } from './abstract.jwt.controller';
+import { Response } from 'express';
 
 @Controller('users')
 @ApiTags('Users')
@@ -40,6 +43,36 @@ export class UserController extends AbstractJwtController {
   @Get(':username')
   getUserByUsername(@Param('username') username: string): any {
     return this.userService.getUserByUsername(username);
+  }
+
+  @Post('verify/whatsapp/otp')
+  async userWhatsAppVerifyOtp(
+    @Body() dto: any,
+    @Res() res: Response,
+  ): Promise<any> {
+    this.logger.log(`WhatsApp Connect: ${JSON.stringify(dto)}`);
+    const result$ = this.userService.userWhatsAppVerifyOtp(dto);
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    });
+  }
+
+  @Post('/whatsapp/disConnect')
+  async disConnectWhatsAppUser(
+    @Body() dto: any,
+    @Res() res: Response,
+  ): Promise<any> {
+    this.logger.log(`WhatsApp Connect: ${JSON.stringify(dto)}`);
+    const result$ = this.userService.disConnectWhatsAppUser(dto);
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    });
   }
 
   @Patch(':username')
