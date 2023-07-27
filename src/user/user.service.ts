@@ -80,6 +80,18 @@ export class UserService implements OnApplicationBootstrap {
     return this.userClient.send<any>(pattern, payload);
   }
 
+  connectTelegramUser(payload: any): Observable<ResponseDto> {
+    const pattern = { cmd: 'connectTelegramUser' };
+    this.logger.log('connectTelegramUser: ' + JSON.stringify(payload));
+    return this.userClient.send<any>(pattern, payload);
+  }
+
+  disconnectTelegramUser(payload: any): Observable<ResponseDto> {
+    const pattern = { cmd: 'disconnectTelegramUser' };
+    this.logger.log('disconnectTelegramUser: ' + JSON.stringify(payload));
+    return this.userClient.send<any>(pattern, payload);
+  }
+
   updateUser(payload: any): any {
     const pattern = { cmd: 'updateUser' };
     this.logger.log('updateUser' + payload);

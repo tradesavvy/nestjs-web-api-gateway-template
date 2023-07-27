@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
@@ -67,6 +68,40 @@ export class UserController extends AbstractJwtController {
   ): Promise<any> {
     this.logger.log(`WhatsApp Connect: ${JSON.stringify(dto)}`);
     const result$ = this.userService.disConnectWhatsAppUser(dto);
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    });
+  }
+
+  @Post('telegram/connect')
+  async connectTelegramUser(
+    @Req() req: any,
+    @Body() dto: any,
+    @Res() res: Response,
+  ): Promise<any> {
+    this.logger.log(`telegram Connect: ${JSON.stringify(dto)}`);
+    dto.userName = req.user.username;
+    const result$ = this.userService.connectTelegramUser(dto);
+    const result = await lastValueFrom(result$);
+    return res.status(result.statusCode || 400).json({
+      status: result.status,
+      data: result.data,
+      message: result.message,
+    });
+  }
+
+  @Post('telegram/disconnect')
+  async disconnectTelegramUser(
+    @Req() req: any,
+    @Body() dto: any,
+    @Res() res: Response,
+  ): Promise<any> {
+    this.logger.log(`telegram Connect: ${JSON.stringify(dto)}`);
+    dto.userName = req.user.username;
+    const result$ = this.userService.disconnectTelegramUser(dto);
     const result = await lastValueFrom(result$);
     return res.status(result.statusCode || 400).json({
       status: result.status,
