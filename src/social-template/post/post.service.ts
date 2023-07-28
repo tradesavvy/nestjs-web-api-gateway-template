@@ -22,50 +22,33 @@ export class PostService {
     return this.socialTemplateClient.send<ResponseDto>(pattern, post);
   }
 
-  async likePost(postId: string, username: string) {
+  likePost(postId: string, username: string): Observable<ResponseDto> {
     const pattern = { cmd: 'likePost' };
-    return this.socialTemplateClient.send<any>(pattern, {
+    return this.socialTemplateClient.send<ResponseDto>(pattern, {
       postId,
       username,
     });
   }
 
-  async unlikePost(postId: string, username: string) {
+  unlikePost(postId: string, username: string): Observable<ResponseDto> {
     const pattern = { cmd: 'unLikePost' };
-    return this.socialTemplateClient.send<any>(pattern, {
+    return this.socialTemplateClient.send<ResponseDto>(pattern, {
       postId,
       username,
     });
   }
 
-  async deletePost(postId: string, userId: string) {
+  deletePost(postId: string, username: string): Observable<ResponseDto> {
     const pattern = { cmd: 'deletePost' };
-    return this.socialTemplateClient.send<any>(pattern, {
+    return this.socialTemplateClient.send<ResponseDto>(pattern, {
       postId,
-      userId,
+      username,
     });
   }
 
-  async addComment(userId: string, postId: string, comment: CreateCommentDto) {
-    const pattern = { cmd: 'addComment' };
-    return this.socialTemplateClient.send<any>(pattern, {
-      postId,
-      userId,
-      comment,
-    });
-  }
-
-  async deleteComment(commentId: string, userId: string) {
-    const pattern = { cmd: 'deleteComment' };
-    return this.socialTemplateClient.send<any>(pattern, {
-      commentId,
-      userId,
-    });
-  }
-
-  async getPost(postId: string) {
+  getPost(postId: string): Observable<ResponseDto> {
     const pattern = { cmd: 'getPost' };
-    return this.socialTemplateClient.send<any>(pattern, {
+    return this.socialTemplateClient.send<ResponseDto>(pattern, {
       postId,
     });
   }

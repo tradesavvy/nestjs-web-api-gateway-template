@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { PostController } from './post/post.controller';
 import { PostService } from './post/post.service';
+import { CommentController } from './comment/comment.controller';
+import { CommentService } from './comment/comment.service';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { PostService } from './post/post.service';
       },
     ]),
   ],
-  providers: [PostService],
-  controllers: [PostController],
+  providers: [PostService, CommentService],
+  controllers: [PostController, CommentController],
 })
 export class SocialTemplateModule {}
