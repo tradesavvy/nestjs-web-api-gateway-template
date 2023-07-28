@@ -22,6 +22,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './middleware/logging.interceptor';
 import { EventModule } from './event/event.module';
 import { WhatsAppBotModule } from './whatsappbot/whatsappbot.module';
+import { SocialTemplateModule } from './social-template/social-template.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { WhatsAppBotModule } from './whatsappbot/whatsappbot.module';
     AuthModule,
     EventModule,
     WhatsAppBotModule,
+    SocialTemplateModule,
   ],
   controllers: [AppController],
   providers: [
