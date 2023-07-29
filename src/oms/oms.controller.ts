@@ -40,6 +40,10 @@ export class OmsController extends AbstractJwtController {
   getTrades(@Req() req: any): any {
     return this.omsService.getTrades(req.user.username);
   }
+  @Get('orders')
+  getOrders(@Req() req: any): any {
+    return this.omsService.getOrders(req.user.username);
+  }
 
   @Get('trades/:tradeId')
   getTradesById(@Req() req: any, @Param('tradeId') tradeId: string): any {
