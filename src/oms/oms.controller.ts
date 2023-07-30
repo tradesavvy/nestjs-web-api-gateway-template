@@ -44,7 +44,7 @@ export class OmsController extends AbstractJwtController {
   getOrders(@Req() req: any): any {
     return this.omsService.getOrders(req.user.username);
   }
-  @Post('orders/trigger/:id')
+  @Post('orders/trigger/:orderId')
   triggerOrder(
     @Req() req: any,
     @Body() payload: any,
