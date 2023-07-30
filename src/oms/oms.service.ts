@@ -13,6 +13,20 @@ export class OmsService {
     // this.logger.log('ticker client ' + JSON.stringify(this.omsClient));
     return this.omsClient.send<any>(pattern, { data: 'pingTickerFromTrade' });
   }
+  cancelOrder(payload: any): any {
+    this.logger.log(
+      'Received request for cancelOrder: ' + JSON.stringify(payload),
+    );
+    const pattern = { cmd: 'cancelOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+  }
+  triggerOrder(payload: any): any {
+    this.logger.log(
+      'Received request for triggerOrder: ' + JSON.stringify(payload),
+    );
+    const pattern = { cmd: 'triggerOrder' };
+    this.omsClient.emit<any>(pattern, payload);
+  }
   convertUserMessageToOrder(payload: any): any {
     this.logger.log('convertUserMessageToOrder ' + JSON.stringify(payload));
     const pattern = { cmd: 'convertUserMessageToOrder' };

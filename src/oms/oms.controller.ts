@@ -44,7 +44,28 @@ export class OmsController extends AbstractJwtController {
   getOrders(@Req() req: any): any {
     return this.omsService.getOrders(req.user.username);
   }
-
+  @Post('orders/trigger/:id')
+  triggerOrder(
+    @Req() req: any,
+    @Body() payload: any,
+    @Param('orderId') orderId: string,
+  ): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    payload.orderId = orderId;
+    return this.omsService.triggerOrder(payload);
+  }
+  @Post('orders/cancel/:orderId')
+  cancelOrder(
+    @Req() req: any,
+    @Body() payload: any,
+    @Param('orderId') orderId: string,
+  ): any {
+    payload.userName = req.user.username;
+    payload.source = 'LAABHUM';
+    payload.orderId = orderId;
+    return this.omsService.cancelOrder(payload);
+  }
   @Get('trades/:tradeId')
   getTradesById(@Req() req: any, @Param('tradeId') tradeId: string): any {
     {

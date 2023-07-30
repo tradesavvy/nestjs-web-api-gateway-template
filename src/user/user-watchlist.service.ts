@@ -9,23 +9,27 @@ export class UserWatchlistService {
   constructor(@Inject('USER') private readonly userClient: ClientProxy) {}
 
   updateUserWatchlist(dto: CreateWatchlistDto): any {
-    this.logger.log('Received request for updateUserWatchlist: ' + dto);
+    this.logger.log(
+      'Received request for updateUserWatchlist: ' + JSON.stringify(dto),
+    );
     const pattern = { cmd: 'updateUserWatchlist' };
     return this.userClient.send<any>(pattern, dto);
   }
   getUserWatchlist(payload: { userName: any }): any {
     const pattern = { cmd: 'getUserWatchlist' };
-    this.logger.log('getUserWatchlist' + payload);
+    this.logger.log('getUserWatchlist' + JSON.stringify(payload));
     return this.userClient.send<any>(pattern, payload);
   }
   updateWatchlistSettings(dto: any): any {
-    this.logger.log('Received request for updateWatchlistSettings: ' + dto);
+    this.logger.log(
+      'Received request for updateWatchlistSettings: ' + JSON.stringify(dto),
+    );
     const pattern = { cmd: 'updateUserWatchlistSettings' };
     return this.userClient.send<any>(pattern, dto);
   }
   getUserWatchlistSettings(payload: { userName: any }): any {
     const pattern = { cmd: 'getUserWatchlistSettings' };
-    this.logger.log('getUserWatchlistSettings' + payload);
+    this.logger.log('getUserWatchlistSettings' + JSON.stringify(payload));
     return this.userClient.send<any>(pattern, payload);
   }
 }
