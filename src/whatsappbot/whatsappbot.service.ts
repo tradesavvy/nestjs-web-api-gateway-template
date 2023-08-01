@@ -23,4 +23,18 @@ export class WhatsAppBotService {
     };
     return this.whatsAppBotClient.send<any>(pattern, data);
   }
+
+  verifyWebhook(
+    requestBody: string,
+    twilioSignature: string,
+    url: string,
+  ): any {
+    this.logger.log('verifyWebhook payload');
+    const pattern = { cmd: 'verifyWebhook' };
+    return this.whatsAppBotClient.send<any>(pattern, {
+      requestBody,
+      twilioSignature,
+      url,
+    });
+  }
 }

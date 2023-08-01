@@ -1,4 +1,12 @@
-import { Body, Controller, Logger, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Headers,
+  Logger,
+  Post,
+  Request,
+  Res,
+} from '@nestjs/common';
 import { WhatsAppBotService } from './whatsappbot.service';
 import { lastValueFrom } from 'rxjs';
 import { Response } from 'express';
@@ -21,5 +29,21 @@ export class WhatsAppBotController {
       data: result.data,
       message: result.message,
     });
+  }
+
+  @Post('webhook')
+  handleWebhook(
+    @Request() req: any,
+    @Headers('x-twilio-signature') twilloSignature: string,
+  ): any {
+    const url = req.protocol + '://' + req.get('host') + req.originalUrl;
+    this.logger.log('Twillo  Signature' + twilloSignature);
+    this.logger.log('Twillo headers ' + req.body);
+    this.logger.log('URL ' + url);
+    return this.whatsAppBotService.verifyWebhook(
+      JSON.stringify(req.body),
+      twilloSignature,
+      url,
+    );
   }
 }
