@@ -31,7 +31,7 @@ export class WhatsAppBotController {
     });
   }
 
-  @Post('webhook')
+  @Post('twilio/webhook')
   handleWebhook(
     @Request() req: any,
     @Headers('x-twilio-signature') twilloSignature: string,

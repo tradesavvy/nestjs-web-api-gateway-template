@@ -31,7 +31,7 @@ export class WhatsAppBotService {
   ): any {
     this.logger.log('verifyWebhook payload');
     const pattern = { cmd: 'verifyWebhook' };
-    return this.whatsAppBotClient.send<any>(pattern, {
+    return this.whatsAppBotClient.emit<any>(pattern, {
       requestBody,
       twilioSignature,
       url,
