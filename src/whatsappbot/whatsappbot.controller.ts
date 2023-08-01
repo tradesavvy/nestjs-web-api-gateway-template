@@ -17,7 +17,7 @@ export class WhatsAppBotController {
 
   constructor(private readonly whatsAppBotService: WhatsAppBotService) {}
 
-  @Post('')
+  @Post()
   async sendNotification(
     @Body() payload: any,
     @Res() res: Response,

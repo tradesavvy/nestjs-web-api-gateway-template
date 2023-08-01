@@ -24,14 +24,10 @@ export class WhatsAppBotService {
     return this.whatsAppBotClient.send<any>(pattern, data);
   }
 
-  verifyWebhook(
-    requestBody: string,
-    twilioSignature: string,
-    url: string,
-  ): any {
+  verifyWebhook(requestBody: string, twilioSignature: string, url: string) {
     this.logger.log('verifyWebhook payload');
     const pattern = { cmd: 'verifyWebhook' };
-    return this.whatsAppBotClient.emit<any>(pattern, {
+    this.whatsAppBotClient.emit<any>(pattern, {
       requestBody,
       twilioSignature,
       url,
