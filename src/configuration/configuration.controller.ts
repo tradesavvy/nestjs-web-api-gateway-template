@@ -84,7 +84,9 @@ export class ConfigurationController extends AbstractJwtController {
 
   @Post('connect')
   connectUserBroker(@Req() req: any, @Body() dto: ConnectUserBroker): any {
-    this.logger.log('Received request for connectUserBroker: ' + dto);
+    this.logger.log(
+      'Received request for connectUserBroker: ' + JSON.stringify(dto),
+    );
 
     dto.userName = req.user.username;
     return this.configurationService.connectUserBroker(dto);
