@@ -1,5 +1,10 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ClientProxy, MessagePattern } from '@nestjs/microservices';
+import {
+  ClientProxy,
+  EventPattern,
+  MessagePattern,
+} from '@nestjs/microservices';
+import { handleSuccessResponse } from 'src/common/response.service';
 
 @Injectable()
 export class UserglobalriskService {
@@ -12,6 +17,14 @@ export class UserglobalriskService {
     this.logger.log('sending getUserGlobalRisk... ' + username);
     const pattern = { cmd: 'getUserGlobalRisk' };
     return this.userClient.send<any>(pattern, { userName: username });
+  }
+
+  @MessagePattern({ cmd: 'resetProfit' })
+  async resetProfit(): Promise<any> {
+    this.logger.log('sending resetProfit... ');
+    const pattern = { cmd: 'resetProfit' };
+    this.userClient.emit<any>(pattern, {});
+    return handleSuccessResponse('success', { message: 'Request Received' });
   }
 
   @MessagePattern({ cmd: 'updateDayGoalAndMaxLossProfit' })

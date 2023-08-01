@@ -8,8 +8,8 @@ import {
   Post,
   Put,
   Req,
+  UseGuards,
 } from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ApiTags } from '@nestjs/swagger';
 import { UserbrokersService } from './userbrokers.service';
 import {
@@ -21,6 +21,7 @@ import {
   UserBroker,
 } from 'src/common/dtos/userbrokers.dto';
 import { AbstractJwtController } from './abstract.jwt.controller';
+import { ApiKeyAuthGuard } from 'src/guard/api-key-auth.guard';
 
 @Controller('userbroker')
 @ApiTags('User  Brokers')
@@ -124,5 +125,10 @@ export class UserBrokersController extends AbstractJwtController {
     };
     this.logger.log('Received request for deleteUserBroker: ' + dto);
     return this.userbrokersService.deleteUserBroker(dto);
+  }
+  @UseGuards(ApiKeyAuthGuard)
+  @Post('reset')
+  reset(): any {
+    return this.userbrokersService.resetTokens();
   }
 }

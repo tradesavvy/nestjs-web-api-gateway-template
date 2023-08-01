@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientProxy, EventPattern } from '@nestjs/microservices';
+import { handleSuccessResponse } from 'src/common/response.service';
 
 @Injectable()
 export class UserbrokersService {
@@ -11,6 +12,13 @@ export class UserbrokersService {
     @Inject('USER') private readonly userClient: ClientProxy,
   ) {}
 
+  @EventPattern({ cmd: 'resetTokens' })
+  async resetTokens(): Promise<any> {
+    this.logger.log('sending resetTokens... ');
+    const pattern = { cmd: 'resetTokens' };
+    this.userClient.emit<any>(pattern, {});
+    return handleSuccessResponse('success', { message: 'Request Received' });
+  }
   async createUserBroker(dto: any): Promise<any> {
     this.logger.log(
       'Received request for createUserBroker: ' + JSON.stringify(dto),
