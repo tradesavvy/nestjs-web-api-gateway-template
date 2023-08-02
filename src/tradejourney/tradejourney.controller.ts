@@ -20,9 +20,20 @@ export class TradejourneyController extends AbstractJwtController {
     const queryBody = {
       indexName: 'journey',
       query: {
-        match: {
-          tradeId: tradeId,
+        from: 0,
+        size: 1000,
+        query: {
+          match: {
+            tradeId: tradeId,
+          },
         },
+        sort: [
+          {
+            eventTime: {
+              order: 'desc',
+            },
+          },
+        ],
       },
     };
     return await this.tradeJourney.search(queryBody);
