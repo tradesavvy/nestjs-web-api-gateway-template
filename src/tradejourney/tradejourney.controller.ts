@@ -30,7 +30,7 @@ export class TradejourneyController extends AbstractJwtController {
         sort: [
           {
             eventTime: {
-              order: 'desc',
+              order: 'asc',
             },
           },
         ],
