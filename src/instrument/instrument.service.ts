@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Inject, Injectable, Logger, UseGuards } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
 export class InstrumentService {
@@ -29,12 +28,12 @@ export class InstrumentService {
 
   getInstruments(payload: any): any {
     const pattern = { cmd: 'getInstruments' };
-    this.logger.log('GetInstruments' + payload);
+    this.logger.log('GetInstruments' + JSON.stringify(payload));
     return this.instruementClient.send<any>(pattern, payload);
   }
   getInstrumentByExchange(payload: string): any {
     const pattern = { cmd: 'getInstrumentByExchange' };
-    this.logger.log('getInstrumentByExchange' + payload);
+    this.logger.log('getInstrumentByExchange' + JSON.stringify(payload));
     return this.instruementClient.send<any>(pattern, payload);
   }
 }

@@ -91,6 +91,7 @@ export class AuthController {
     userResponseDto.accessToken = jwtTokenObj.access_token;
     userResponseDto.isNewRegister = false;
     //generate an login event
+    res.cookie('jwt', jwtTokenObj.access_token);
     this.logger.log('emitting UserLoginEvent... ');
     this.emitter.emit('user.login', new UserLoginEvent(user.userName));
     return res.status(enrichedUser.statusCode).json({

@@ -19,10 +19,12 @@ import { TimelineModule } from './timeline/timeline.module';
 
 import * as cookieParser from 'cookie-parser';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { LoggingInterceptor } from './middleware/logging.interceptor';
 import { EventModule } from './event/event.module';
 import { WhatsAppBotModule } from './whatsappbot/whatsappbot.module';
 import { SocialTemplateModule } from './social-template/social-template.module';
+
+import { JwtService } from '@nestjs/jwt';
+import { LoggingInterceptor } from './middleware/logging.interceptor';
 
 @Module({
   imports: [
@@ -49,6 +51,7 @@ import { SocialTemplateModule } from './social-template/social-template.module';
   controllers: [AppController],
   providers: [
     AppService,
+    JwtService,
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
