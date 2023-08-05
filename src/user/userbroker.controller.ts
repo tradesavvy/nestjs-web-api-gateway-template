@@ -42,6 +42,17 @@ export class UserBrokersController extends AbstractJwtController {
     });
   }
 
+  @Get('/:broker')
+  generatePartnerConsent(
+    @Req() req: any,
+    @Param('broker') broker: string,
+  ): any {
+    return this.userbrokersService.generatePartnerConsent({
+      userName: req.user.username,
+      broker: broker,
+    });
+  }
+
   @Post()
   createUserBroker(@Req() req: any, @Body() dto: CreateUserBrokerDto): any {
     this.logger.log('Received request for createUserBroker: ' + dto);

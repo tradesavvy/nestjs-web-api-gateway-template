@@ -5,6 +5,11 @@ import { handleSuccessResponse } from 'src/common/response.service';
 
 @Injectable()
 export class UserbrokersService {
+  generatePartnerConsent(payload: { userName: any; broker: string }): any {
+    const pattern = { cmd: 'generatePartnerConsent' };
+    this.logger.log('generatePartnerConsent' + payload);
+    return this.userClient.send<any>(pattern, payload);
+  }
   private readonly logger = new Logger(UserbrokersService.name);
 
   constructor(
